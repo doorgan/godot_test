@@ -4,14 +4,9 @@ var player
 var should_attack = false
 var attacked_entities = []
 
-func handle_input(entity, event):
-	if Input.is_action_just_pressed("attack"):
-		if !$Chain.is_stopped():
-			entity.switch_state("attack2")
-
 func enter(entity):
 	player = entity
-	entity.animations.travel("attack1")
+	entity.animations.travel("attack2")
 
 func update(entity, delta):
 	if not should_attack:
@@ -23,6 +18,7 @@ func update(entity, delta):
 				break
 			if attacked_entities.has(target):
 				break
+			print(target)
 			attacked_entities.append(target)
 			target.hit_landed(entity)
 	
@@ -34,9 +30,3 @@ func attack_finished():
 	attacked_entities = []
 	should_attack = false
 	player.switch_state("idle")
-
-func enable_chain():
-	$Chain.start()
-
-func disable_chain():
-	$Chain.stop()

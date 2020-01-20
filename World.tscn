@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://sprites/Environment/s_grave_strip3.png" type="Texture" id=1]
-[ext_resource path="res://sprites/Environment/s_wall.png" type="Texture" id=2]
-[ext_resource path="res://Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://sprites/Environment/s_grave_strip3.png" type="Texture" id=2]
+[ext_resource path="res://sprites/Environment/s_wall.png" type="Texture" id=3]
 [ext_resource path="res://Destructable.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -16,59 +16,64 @@ extents = Vector2( 528.503, 10 )
 
 [node name="Node" type="Node"]
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-editor/display_folded = true
+[node name="YSort" type="YSort" parent="."]
+
+[node name="Player" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 702.394, 243.723 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="YSort"]
 position = Vector2( 410.109, 250.383 )
+z_index = -1
 
-[node name="Sprite" type="Sprite" parent="StaticBody2D"]
-texture = ExtResource( 1 )
+[node name="Sprite" type="Sprite" parent="YSort/StaticBody2D"]
+texture = ExtResource( 2 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/StaticBody2D"]
 position = Vector2( 0.527039, 10.2773 )
 shape = SubResource( 1 )
 
-[node name="s_wall" type="Sprite" parent="StaticBody2D"]
+[node name="s_wall" type="Sprite" parent="YSort/StaticBody2D"]
 position = Vector2( -400.109, 53.9381 )
 scale = Vector2( 1, 19.105 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 
-[node name="s_wall2" type="Sprite" parent="StaticBody2D"]
+[node name="s_wall2" type="Sprite" parent="YSort/StaticBody2D"]
 position = Vector2( 599.891, 49.6173 )
 scale = Vector2( 1, 19.105 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 
-[node name="s_wall3" type="Sprite" parent="StaticBody2D"]
+[node name="s_wall3" type="Sprite" parent="YSort/StaticBody2D"]
 position = Vector2( 99.8905, -240.383 )
 scale = Vector2( 32.25, 1.42748 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 
-[node name="s_wall4" type="Sprite" parent="StaticBody2D"]
+[node name="s_wall4" type="Sprite" parent="YSort/StaticBody2D"]
 position = Vector2( 99.8906, 339.617 )
 scale = Vector2( 32.25, 1.42748 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="YSort/StaticBody2D"]
 position = Vector2( -396.032, 41.7472 )
 shape = SubResource( 2 )
 
-[node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="YSort/StaticBody2D"]
 position = Vector2( 593.359, 51.8173 )
 shape = SubResource( 2 )
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="YSort/StaticBody2D"]
 position = Vector2( 105.485, -229.477 )
 shape = SubResource( 3 )
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="YSort/StaticBody2D"]
 position = Vector2( 107.336, 329.41 )
 shape = SubResource( 3 )
 
-[node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 152.547, 26.8344 )
-scale = Vector2( 3, 3 )
+[node name="Destructable" parent="YSort" instance=ExtResource( 4 )]
+position = Vector2( 426.802, 111.36 )
+hitpoints = 5
 
-[node name="Destructable" parent="." instance=ExtResource( 4 )]
-position = Vector2( 420, 110 )
+[node name="Destructable3" parent="YSort" instance=ExtResource( 4 )]
+position = Vector2( 407.757, 161.694 )
 
-[node name="Destructable2" parent="." instance=ExtResource( 4 )]
-position = Vector2( 660, 230.383 )
+[node name="Destructable2" parent="YSort" instance=ExtResource( 4 )]
+position = Vector2( 660, 232.658 )

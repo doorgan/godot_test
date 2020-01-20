@@ -10,7 +10,8 @@ onready var states = {
 	"idle": $States/Idle,
 	"run": $States/Run,
 	"roll": $States/Roll,
-	"attack1": $States/Attack
+	"attack1": $States/Attack,
+	"attack2": $States/Attack2
 }
 onready var state = states["idle"]
 
