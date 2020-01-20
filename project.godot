@@ -9,12 +9,18 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Area2D",
+"class": "Hurtbox",
+"language": "GDScript",
+"path": "res://Hurtbox.gd"
+}, {
 "base": "Node",
 "class": "State",
 "language": "GDScript",
 "path": "res://Utils/State.gd"
 } ]
 _global_script_class_icons={
+"Hurtbox": "",
 "State": ""
 }
 
