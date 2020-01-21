@@ -4,6 +4,7 @@ var knockback_direction = Vector2.ZERO
 var motion = Vector2.ZERO
 
 export (int) var hitpoints = 3
+export (int) var knockback_speed = 40
 
 func _ready():
 	update_hitpoints()
@@ -23,7 +24,7 @@ func knockback():
 	$Knockback.start()
 
 func apply_knockback(delta):
-	motion = knockback_direction * 100
+	motion = knockback_direction * knockback_speed
 	motion = move_and_slide(motion)
 
 func update_hitpoints():

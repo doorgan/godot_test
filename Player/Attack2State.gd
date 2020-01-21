@@ -3,6 +3,11 @@ extends State
 var player
 var should_attack = false
 var attacked_entities = []
+var can_chain = false
+
+func handle_input(entity, event):
+	if can_chain and Input.is_action_just_pressed("attack"):
+		entity.switch_state("attack3")
 
 func enter(entity):
 	player = entity
@@ -11,17 +16,18 @@ func enter(entity):
 func update(entity, delta):
 	if not should_attack:
 		return
-	var targets = $Hitboxes.get_overlapping_areas()
+	var targets = $Hitbox.get_overlapping_areas()
 	for target in targets:
 		if target is Hurtbox:
 			if entity.is_a_parent_of(target):
-				break
+				continue
 			if attacked_entities.has(target):
-				break
-			print(target)
+				continue
 			attacked_entities.append(target)
 			target.hit_landed(entity)
-	
+
+func exit(entity):
+	attack_finished()
 
 func attack_started():
 	should_attack = true;
@@ -29,4 +35,12 @@ func attack_started():
 func attack_finished():
 	attacked_entities = []
 	should_attack = false
+
+func animation_finished():
 	player.switch_state("idle")
+
+func enable_chain():
+	can_chain = true
+
+func disable_chain():
+	can_chain = false

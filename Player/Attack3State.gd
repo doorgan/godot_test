@@ -5,14 +5,9 @@ var should_attack = false
 var attacked_entities = []
 var can_chain = false
 
-func handle_input(entity, event):
-	if Input.is_action_just_pressed("attack"):
-		if can_chain:
-			entity.switch_state("attack2")
-
 func enter(entity):
 	player = entity
-	entity.animations.travel("attack1")
+	entity.animations.travel("attack3")
 
 func update(entity, delta):
 	if not should_attack:
@@ -26,7 +21,9 @@ func update(entity, delta):
 				continue
 			attacked_entities.append(target)
 			target.hit_landed(entity)
-	
+
+func exit(entity):
+	attack_finished()
 
 func attack_started():
 	should_attack = true;
@@ -34,10 +31,6 @@ func attack_started():
 func attack_finished():
 	attacked_entities = []
 	should_attack = false
-
-func exit(entity):
-	attack_finished()
-	disable_chain()
 
 func animation_finished():
 	player.switch_state("idle")
