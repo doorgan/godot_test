@@ -28,6 +28,8 @@ func update(entity, delta):
 
 func exit(entity):
 	attack_finished()
+	$Hitbox.hide_hitboxes()
+	
 
 func attack_started():
 	should_attack = true;

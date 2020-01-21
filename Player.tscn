@@ -1,11 +1,11 @@
 [gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
-[ext_resource path="res://sprites/Skeleton/s_skeleton_attack_three_strip6.png" type="Texture" id=2]
+[ext_resource path="res://sprites/Skeleton/s_skeleton_idle_strip3-sheet.png" type="Texture" id=2]
 [ext_resource path="res://Hurtbox.tscn" type="PackedScene" id=3]
 [ext_resource path="res://sprites/Skeleton/s_skeleton_attack_one_strip5.png" type="Texture" id=4]
 [ext_resource path="res://sprites/Skeleton/s_skeleton_attack_two_strip5.png" type="Texture" id=5]
-[ext_resource path="res://sprites/Skeleton/s_skeleton_idle_strip3-sheet.png" type="Texture" id=6]
+[ext_resource path="res://sprites/Skeleton/s_skeleton_attack_three_strip6.png" type="Texture" id=6]
 [ext_resource path="res://sprites/Skeleton/s_skeleton_roll_strip7.png" type="Texture" id=7]
 [ext_resource path="res://sprites/Skeleton/s_skeleton_run_strip6.png" type="Texture" id=8]
 [ext_resource path="res://Player/IdleState.gd" type="Script" id=9]
@@ -122,6 +122,18 @@ tracks/6/keys = {
 "update": 0,
 "values": [ Vector2( 0, 0 ) ]
 }
+tracks/7/type = "value"
+tracks/7/path = NodePath("States/Attack/Hitbox/CollisionShape2D:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 0.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 
 [sub_resource type="Animation" id=4]
 length = 0.6
@@ -219,6 +231,18 @@ tracks/6/keys = {
 "update": 0,
 "values": [ Vector2( 16, 0 ) ]
 }
+tracks/7/type = "value"
+tracks/7/path = NodePath("States/Attack2/Hitbox/CollisionShape2D:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
 
 [sub_resource type="Animation" id=5]
 length = 0.6
@@ -232,7 +256,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 2 ) ]
+"values": [ ExtResource( 6 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:vframes")
@@ -302,6 +326,18 @@ tracks/5/keys = {
 "update": 0,
 "values": [ Vector2( 16, 0 ) ]
 }
+tracks/6/type = "value"
+tracks/6/path = NodePath("States/Attack3/Hitbox/CollisionShape2D:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
 
 [sub_resource type="Animation" id=6]
 
@@ -318,7 +354,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 6 ) ]
+"values": [ ExtResource( 2 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:frame")
@@ -367,6 +403,18 @@ tracks/4/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( 0, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("States/Attack/Hitbox/CollisionShape2D:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -431,6 +479,18 @@ tracks/4/keys = {
 "update": 0,
 "values": [ Vector2( 0, 0 ) ]
 }
+tracks/5/type = "value"
+tracks/5/path = NodePath("States/Attack/Hitbox/CollisionShape2D:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=9]
 length = 0.6
@@ -482,6 +542,18 @@ tracks/3/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( 0, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("States/Attack/Hitbox/CollisionShape2D:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
 }
 
 [sub_resource type="AnimationNodeAnimation" id=10]
@@ -543,7 +615,7 @@ states/run/node = SubResource( 15 )
 states/run/position = Vector2( 342, -9 )
 transitions = [ "idle", "run", SubResource( 16 ), "run", "idle", SubResource( 17 ), "idle", "attack1", SubResource( 18 ), "attack1", "idle", SubResource( 19 ), "attack1", "attack2", SubResource( 20 ), "attack2", "attack3", SubResource( 21 ), "attack2", "idle", SubResource( 22 ), "attack3", "idle", SubResource( 23 ), "idle", "roll", SubResource( 24 ), "roll", "idle", SubResource( 25 ) ]
 start_node = "idle"
-graph_offset = Vector2( -91, 4 )
+graph_offset = Vector2( -287, -49 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=27]
 
@@ -551,7 +623,7 @@ graph_offset = Vector2( -91, 4 )
 extents = Vector2( 5.94878, 5.16029 )
 
 [sub_resource type="RectangleShape2D" id=29]
-extents = Vector2( 10, 7.5 )
+extents = Vector2( 10, 8.75 )
 
 [sub_resource type="RectangleShape2D" id=30]
 extents = Vector2( 19.9241, 5.8479 )
@@ -564,10 +636,9 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 16, 0 )
 texture = ExtResource( 2 )
 offset = Vector2( 0.097548, -24.0437 )
-hframes = 6
+hframes = 3
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 position = Vector2( 0.0849144, -7.4698 )
@@ -614,37 +685,34 @@ wait_time = 0.5
 one_shot = true
 
 [node name="Attack" type="Node2D" parent="States"]
-editor/display_folded = true
-visible = false
 script = ExtResource( 12 )
 
 [node name="Hitbox" parent="States/Attack" instance=ExtResource( 13 )]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="States/Attack/Hitbox"]
+visible = false
 position = Vector2( 22.3528, 6.46612 )
 scale = Vector2( 2, 2 )
 shape = SubResource( 28 )
 
 [node name="Attack2" type="Node2D" parent="States"]
-editor/display_folded = true
-visible = false
 script = ExtResource( 14 )
 
 [node name="Hitbox" parent="States/Attack2" instance=ExtResource( 13 )]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="States/Attack2/Hitbox"]
-position = Vector2( 20, 6 )
+visible = false
+position = Vector2( 25, 6 )
 scale = Vector2( 2, 2 )
 shape = SubResource( 29 )
 
 [node name="Attack3" type="Node2D" parent="States"]
-editor/display_folded = true
-visible = false
 script = ExtResource( 15 )
 
 [node name="Hitbox" parent="States/Attack3" instance=ExtResource( 13 )]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="States/Attack3/Hitbox"]
-position = Vector2( 37.0119, 8.38007 )
+visible = false
+position = Vector2( 40, 8.5 )
 shape = SubResource( 30 )
 [connection signal="timeout" from="States/Roll/Timer" to="States/Roll" method="_on_Timer_timeout"]

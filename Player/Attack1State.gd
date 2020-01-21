@@ -38,6 +38,7 @@ func attack_finished():
 func exit(entity):
 	attack_finished()
 	disable_chain()
+	$Hitbox.hide_hitboxes()
 
 func animation_finished():
 	player.switch_state("idle")
