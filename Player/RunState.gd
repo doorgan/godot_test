@@ -1,6 +1,6 @@
 extends State
 
-export var speed = 300
+export var speed = 150
 
 func handle_input(entity, event):
 	if Input.is_action_just_pressed("roll"):

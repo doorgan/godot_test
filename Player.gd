@@ -2,8 +2,8 @@ extends KinematicBody2D
 
 signal state_change(new_state)
 
-var MAX_SPEED: float = 300
-var ACCELERATION: float = 2000
+var MAX_SPEED: float = 30
+var ACCELERATION: float = 200
 var motion: Vector2 = Vector2()
 var facing: Vector2 = Vector2.RIGHT
 var animations
