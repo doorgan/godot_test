@@ -11,7 +11,7 @@ func enter(entity):
 	$Timer.wait_time = duration
 	$Timer.start()
 
-func update(entity, delta):
+func physics_process(entity, delta):
 	var motion = entity.motion
 	motion += entity.facing.normalized() * speed * delta
 	entity.move_and_collide(motion)

@@ -668,16 +668,15 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/playback = SubResource( 27 )
 
 [node name="States" type="Node2D" parent="."]
-editor/display_folded = true
 position = Vector2( 0, -23.5 )
 
-[node name="Idle" type="Node" parent="States"]
+[node name="Idle" type="Node2D" parent="States"]
 script = ExtResource( 9 )
 
-[node name="Run" type="Node" parent="States"]
+[node name="Run" type="Node2D" parent="States"]
 script = ExtResource( 10 )
 
-[node name="Roll" type="Node" parent="States"]
+[node name="Roll" type="Node2D" parent="States"]
 editor/display_folded = true
 script = ExtResource( 11 )
 speed = 400

@@ -1,10 +1,10 @@
-extends Node
+extends Node2D
 class_name State
 
 func handle_input(entity, event):
 	pass
 
-func update(entity, delta):
+func physics_process(entity, delta):
 	pass
 
 func enter(entity):

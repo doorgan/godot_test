@@ -9,7 +9,7 @@ func handle_input(entity, event):
 	if Input.is_action_just_pressed("attack"):
 		entity.switch_state("attack1")
 
-func update(entity, delta):
+func physics_process(entity, delta):
 	var axis = entity.get_input_axis()
 	if axis == Vector2.ZERO:
 		entity.motion = Vector2.ZERO

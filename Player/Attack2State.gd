@@ -13,7 +13,7 @@ func enter(entity):
 	player = entity
 	entity.animations.travel("attack2")
 
-func update(entity, delta):
+func physics_process(entity, delta):
 	if not should_attack:
 		return
 	var targets = $Hitbox.get_overlapping_areas()

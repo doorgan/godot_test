@@ -19,7 +19,7 @@ onready var states = {
 onready var state = states["idle"]
 
 func _physics_process(delta):
-	state.update(self, delta)
+	state.physics_process(self, delta)
 
 func _unhandled_input(event):
 	state.handle_input(self, event)

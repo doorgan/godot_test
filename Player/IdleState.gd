@@ -1,6 +1,6 @@
 extends State
 
-func update(entity, delta):
+func physics_process(entity, delta):
 	if Input.is_action_just_pressed("roll"):
 		entity.switch_state("roll")
 	

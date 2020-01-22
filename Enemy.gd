@@ -12,7 +12,7 @@ func _ready():
 	switch_state("idle")
 
 func _physics_process(delta):
-	state.update(self, delta)
+	state.physics_process(self, delta)
 
 func switch_state(new_state):
 	print("new enemy state: " + new_state)

@@ -25,19 +25,18 @@ shape = SubResource( 1 )
 
 [node name="States" type="Node2D" parent="."]
 
-[node name="Idle" type="Node" parent="States"]
+[node name="Idle" type="Node2D" parent="States"]
 script = ExtResource( 2 )
 
-[node name="Chase" type="Node" parent="States"]
+[node name="Chase" type="Node2D" parent="States"]
 script = ExtResource( 3 )
 
 [node name="Perception" type="Area2D" parent="."]
+modulate = Color( 1, 1, 1, 0.247059 )
 collision_layer = 1024
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Perception"]
 position = Vector2( 0, -10 )
 shape = SubResource( 2 )
-[connection signal="area_entered" from="Perception" to="States/Idle" method="_on_Perception_area_entered"]
-[connection signal="area_exited" from="Perception" to="States/Chase" method="_on_Perception_area_exited"]
 [connection signal="body_entered" from="Perception" to="States/Idle" method="_on_Perception_body_entered"]
 [connection signal="body_exited" from="Perception" to="States/Chase" method="_on_Perception_body_exited"]
