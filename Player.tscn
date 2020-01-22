@@ -628,7 +628,9 @@ extents = Vector2( 10, 8.75 )
 [sub_resource type="RectangleShape2D" id=30]
 extents = Vector2( 19.9241, 5.8479 )
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=[
+"player",
+]]
 scale = Vector2( 2, 2 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -666,6 +668,7 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/playback = SubResource( 27 )
 
 [node name="States" type="Node2D" parent="."]
+editor/display_folded = true
 position = Vector2( 0, -23.5 )
 
 [node name="Idle" type="Node" parent="States"]

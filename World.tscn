@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://PlayerStateLabel.gd" type="Script" id=1]
-[ext_resource path="res://Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://sprites/Environment/s_grave_strip3.png" type="Texture" id=3]
-[ext_resource path="res://sprites/Environment/s_wall.png" type="Texture" id=4]
-[ext_resource path="res://Destructable.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://sprites/Environment/s_grave_strip3.png" type="Texture" id=2]
+[ext_resource path="res://sprites/Environment/s_wall.png" type="Texture" id=3]
+[ext_resource path="res://Destructable.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Enemy.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 23.8257, 10 )
@@ -19,22 +19,26 @@ extents = Vector2( 528.503, 10 )
 
 [node name="YSort" type="YSort" parent="."]
 
-[node name="PlayerState" type="Label" parent="YSort"]
-margin_left = 30.0
-margin_top = 90.0
-margin_right = 70.0
-margin_bottom = 104.0
-script = ExtResource( 1 )
+[node name="Player" parent="YSort" instance=ExtResource( 1 )]
+editor/display_folded = true
+position = Vector2( 492.381, 307.023 )
 
-[node name="Player" parent="YSort" instance=ExtResource( 2 )]
-position = Vector2( 480, 290 )
+[node name="Camera2D" type="Camera2D" parent="YSort/Player"]
+position = Vector2( 0.261963, -15.8736 )
+scale = Vector2( 0.5, 0.5 )
+current = true
+zoom = Vector2( 0.8, 0.8 )
+smoothing_enabled = true
+smoothing_speed = 10.0
+editor_draw_drag_margin = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="YSort"]
+editor/display_folded = true
 position = Vector2( 410.109, 250.383 )
 z_index = -1
 
 [node name="Sprite" type="Sprite" parent="YSort/StaticBody2D"]
-texture = ExtResource( 3 )
+texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/StaticBody2D"]
 position = Vector2( 0.527039, 10.2773 )
@@ -43,22 +47,22 @@ shape = SubResource( 1 )
 [node name="s_wall" type="Sprite" parent="YSort/StaticBody2D"]
 position = Vector2( -400.109, 53.9381 )
 scale = Vector2( 1, 19.105 )
-texture = ExtResource( 4 )
+texture = ExtResource( 3 )
 
 [node name="s_wall2" type="Sprite" parent="YSort/StaticBody2D"]
 position = Vector2( 599.891, 49.6173 )
 scale = Vector2( 1, 19.105 )
-texture = ExtResource( 4 )
+texture = ExtResource( 3 )
 
 [node name="s_wall3" type="Sprite" parent="YSort/StaticBody2D"]
 position = Vector2( 99.8905, -189.383 )
 scale = Vector2( 32.25, 1.42748 )
-texture = ExtResource( 4 )
+texture = ExtResource( 3 )
 
 [node name="s_wall4" type="Sprite" parent="YSort/StaticBody2D"]
 position = Vector2( 99.8906, 339.617 )
 scale = Vector2( 32.25, 1.42748 )
-texture = ExtResource( 4 )
+texture = ExtResource( 3 )
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="YSort/StaticBody2D"]
 position = Vector2( -396.032, 41.7472 )
@@ -76,13 +80,18 @@ shape = SubResource( 3 )
 position = Vector2( 107.336, 329.41 )
 shape = SubResource( 3 )
 
-[node name="Destructable" parent="YSort" instance=ExtResource( 5 )]
+[node name="Destructable" parent="YSort" instance=ExtResource( 4 )]
 position = Vector2( 380, 192.658 )
 hitpoints = 5
 
-[node name="Destructable3" parent="YSort" instance=ExtResource( 5 )]
+[node name="Destructable3" parent="YSort" instance=ExtResource( 4 )]
 position = Vector2( 330, 232.658 )
 
-[node name="Destructable2" parent="YSort" instance=ExtResource( 5 )]
+[node name="Destructable2" parent="YSort" instance=ExtResource( 4 )]
 position = Vector2( 660, 232.658 )
-[connection signal="state_change" from="YSort/Player" to="YSort/PlayerState" method="update_label"]
+
+[node name="Destructable4" parent="YSort" instance=ExtResource( 4 )]
+position = Vector2( 566.821, 440.113 )
+
+[node name="Enemy" parent="YSort" instance=ExtResource( 5 )]
+position = Vector2( 144.705, 428.086 )
