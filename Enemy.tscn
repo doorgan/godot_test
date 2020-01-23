@@ -8,7 +8,7 @@
 extents = Vector2( 8, 4 )
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 80.025
+radius = 208.24
 
 [node name="Enemy" type="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -31,6 +31,8 @@ script = ExtResource( 2 )
 [node name="Chase" type="Node2D" parent="States"]
 script = ExtResource( 3 )
 
+[node name="Timer" type="Timer" parent="States/Chase"]
+
 [node name="Perception" type="Area2D" parent="."]
 modulate = Color( 1, 1, 1, 0.247059 )
 collision_layer = 1024
@@ -38,5 +40,6 @@ collision_layer = 1024
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Perception"]
 position = Vector2( 0, -10 )
 shape = SubResource( 2 )
+[connection signal="timeout" from="States/Chase/Timer" to="States/Chase" method="_on_Timer_timeout"]
 [connection signal="body_entered" from="Perception" to="States/Idle" method="_on_Perception_body_entered"]
 [connection signal="body_exited" from="Perception" to="States/Chase" method="_on_Perception_body_exited"]

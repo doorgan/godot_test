@@ -5,7 +5,6 @@ onready var states = {
 	"chase": $States/Chase
 }
 onready var state = states["idle"]
-
 var target
 
 func _ready():
