@@ -7,6 +7,8 @@ onready var states = {
 onready var state = states["idle"]
 var target
 
+var velocity : = Vector2.ZERO
+
 func _ready():
 	switch_state("idle")
 

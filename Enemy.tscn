@@ -4,13 +4,15 @@
 [ext_resource path="res://Enemy/IdleState.gd" type="Script" id=2]
 [ext_resource path="res://Enemy/ChaseState.gd" type="Script" id=3]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 8, 4 )
-
 [sub_resource type="CircleShape2D" id=2]
-radius = 208.24
+radius = 136.878
 
-[node name="Enemy" type="KinematicBody2D"]
+[sub_resource type="CircleShape2D" id=3]
+radius = 25.3242
+
+[node name="Enemy" type="KinematicBody2D" groups=[
+"enemy",
+]]
 script = ExtResource( 1 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -18,10 +20,6 @@ margin_left = -8.0
 margin_top = -16.0
 margin_right = 8.0
 color = Color( 1, 0.392157, 0.392157, 1 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -4 )
-shape = SubResource( 1 )
 
 [node name="States" type="Node2D" parent="."]
 
@@ -40,6 +38,15 @@ collision_layer = 1024
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Perception"]
 position = Vector2( 0, -10 )
 shape = SubResource( 2 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -8.14028, -4.03844, 0.123478, -8.22541, 7.50577, -4.25881, 0.123478, -0.0718327 )
+
+[node name="Neighbors" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Neighbors"]
+position = Vector2( 0, -4.07815 )
+shape = SubResource( 3 )
 [connection signal="timeout" from="States/Chase/Timer" to="States/Chase" method="_on_Timer_timeout"]
 [connection signal="body_entered" from="Perception" to="States/Idle" method="_on_Perception_body_entered"]
 [connection signal="body_exited" from="Perception" to="States/Chase" method="_on_Perception_body_exited"]

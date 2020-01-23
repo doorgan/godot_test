@@ -1,14 +1,11 @@
 extends State
 
 var _entity : Node2D
-var motion = Vector2.ZERO
 var path: PoolVector2Array
 var path_index : = 0
 var velocity : = Vector2.ZERO
 var steer : = Vector2.ZERO
-var ahead : = Vector2.ZERO
-var impact : = Vector2.ZERO
-var normal : = Vector2.ZERO
+var separation : = Vector2.ZERO
 
 var navigation: Navigation2D
 
@@ -19,7 +16,7 @@ func enter(entity):
 	$Timer.start()
 
 func exit(entity):
-	motion = Vector2.ZERO
+	_entity.velocity = Vector2.ZERO
 	$Timer.stop()
 
 func physics_process(entity, delta):
@@ -27,32 +24,60 @@ func physics_process(entity, delta):
 
 func get_path():
 	path_index = 0
-	path = navigation.get_simple_path(_entity.global_position, _entity.target.global_position, false)
+	path = navigation.get_simple_path(_entity.global_position, _entity.target.global_position)
 	update()
 
 func follow_path(delta):
-	if !path:
-		return
-	var goal = path[path_index]
-	if _entity.global_position.distance_to(goal) < 1:
-		path_index = wrapi(path_index + 1, 0, path.size())
-		goal = path[path_index]
-	velocity = Vector2.ZERO
-	velocity = (goal - _entity.global_position).normalized() * 20
+	steer = path_follow()
+	steer += get_separation()
 	
-	var space = _entity.get_world_2d().direct_space_state
-	ahead = _entity.global_position + velocity * 1.5
-	var result = space.intersect_ray(ahead, goal, [_entity])
-	if result and not result.collider.is_in_group("player"):
-		impact = result.position
-		normal = result.normal
-		var length = (ahead - impact).length()
-		steer = (ahead - (normal * length)).normalized() * 20
-	else:
-		steer = Vector2.ZERO
-	
-	motion = _entity.move_and_collide((velocity + steer) * delta)
+	_entity.velocity = _entity.move_and_slide(_entity.velocity + steer)
 	update()
+
+func get_separation() -> Vector2:
+	var velocity : = Vector2.ZERO
+	var neighbor_count : = 0
+	
+	for agent in _entity.get_node("Neighbors").get_overlapping_bodies():
+		if agent.is_in_group("enemy") or agent.is_in_group("environment"):
+			velocity.x += agent.position.x - _entity.position.x
+			velocity.y += agent.position.y - _entity.position.y
+			neighbor_count += 1
+	if neighbor_count == 0:
+		return velocity
+	
+	velocity.x /= neighbor_count
+	velocity.y /= neighbor_count
+	
+	velocity.x *= -1
+	velocity.y *= -1
+	
+	velocity - Vector2(velocity.x - _entity.position.x, velocity.y - _entity.position.y)
+	
+	separation = velocity.normalized() * 20
+	
+	return velocity.normalized()
+
+func path_follow():
+	if !path:
+		return Vector2.ZERO
+	var goal = path[path_index]
+	if _entity.global_position.distance_to(goal) <= 10:
+		path_index += 1
+		if path_index >= path.size():
+			path_index = path.size() - 1
+	if goal:
+		return seek(goal)
+	else:
+		return Vector2.ZERO
+
+func seek(
+		target : Vector2
+	) -> Vector2:
+	var pos = _entity.global_position
+	var desired_velocity = (target - pos).normalized() * 50
+	var steering = (desired_velocity - _entity.velocity) / 20
+	return steering
 
 func _on_Perception_body_exited(body):
 	if body.is_in_group("player"):
@@ -62,13 +87,10 @@ func _draw():
 	if not _entity:
 		return
 	draw_path()
-	draw_circle(pos_of(ahead), 2, Color.cyan)
-	draw_circle(pos_of(impact), 5, Color.black)
-#	draw_line(Vector2.ZERO, motion, Color.yellow)
-	draw_line(Vector2.ZERO, velocity, Color.yellow)
+	draw_line(Vector2.ZERO, _entity.velocity, Color.yellow)
 	draw_line(Vector2.ZERO, steer, Color.purple)
-	draw_line(Vector2.ZERO, velocity + steer, Color.black)
-	draw_line(pos_of(impact), pos_of(impact + normal), Color.blue)
+	draw_line(Vector2.ZERO, _entity.velocity + steer, Color.black)
+	draw_line(Vector2.ZERO, separation, Color.blue, 2)
 
 func draw_path():
 	for i in range(path.size()):
