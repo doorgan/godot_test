@@ -1,18 +1,23 @@
 extends KinematicBody2D
 
+export (int) var max_health = 5
+
 onready var states = {
 	"idle": $States/Idle,
 	"chase": $States/Chase,
 	"attack": $States/Attack,
-	"stagger": $States/Stagger
+	"stagger": $States/Stagger,
+	"die": $States/Die
 }
 onready var state = states["idle"]
-var prev_state
 var target
 
 var velocity : = Vector2.ZERO
 var facing : = Vector2.RIGHT
 var last_attacker : Object
+var health = max_health
+var staggered : = false
+var dead : = false
 
 onready var animations = $AnimationPlayer
 
@@ -29,20 +34,21 @@ func _physics_process(delta):
 func switch_state(new_state):
 	if state != null:
 		state.exit(self)
-	prev_state = state
-	if new_state is Node:
-		state = new_state
-	else:
-		state = states[new_state]
+	state = states[new_state]
 	state.enter(self)
 
-func to_previous_state():
-	if not prev_state:
-		switch_state("idle")
+func take_damage(attacker):
+	health -= 1
+	if health <= 0:
+		dead = true
+		switch_state("die")
 	else:
-		switch_state(prev_state)
-
+		last_attacker = attacker
+		switch_state("stagger")
 
 func _on_Hurtbox_hit(attacker):
-	last_attacker = attacker
-	switch_state("stagger")
+	if dead:
+		return
+	if attacker.is_in_group("enemy"):
+		return
+	take_damage(attacker)

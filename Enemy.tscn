@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Enemy.gd" type="Script" id=1]
 [ext_resource path="res://Enemy/IdleState.gd" type="Script" id=2]
@@ -6,7 +6,20 @@
 [ext_resource path="res://Enemy/AttackState.gd" type="Script" id=4]
 [ext_resource path="res://Hitbox.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Stagger.gd" type="Script" id=6]
-[ext_resource path="res://Hurtbox.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Die.gd" type="Script" id=7]
+[ext_resource path="res://Hurtbox.tscn" type="PackedScene" id=8]
+
+[sub_resource type="ParticlesMaterial" id=9]
+emission_shape = 1
+emission_sphere_radius = 1.0
+flag_disable_z = true
+spread = 63.0
+gravity = Vector3( -22.26, -8.95, 0 )
+angular_velocity = -96.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle_random = 0.48
+color = Color( 1, 0.913725, 0.698039, 1 )
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 14.3143
@@ -136,6 +149,54 @@ tracks/8/keys = {
 "update": 0,
 "values": [ Vector2( 1.05147, 1 ) ]
 }
+tracks/9/type = "value"
+tracks/9/path = NodePath("Sprite/Polygon2D:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Sprite/Polygon2D:rotation_degrees")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Sprite/Polygon2D:scale")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Sprite/Particles2D:visible")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=5]
 resource_name = "chase"
@@ -188,6 +249,179 @@ tracks/3/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 1, 1 ), Vector2( 1.2, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sprite/Polygon2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Sprite/Polygon2D:rotation_degrees")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Sprite/Polygon2D:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Sprite/Particles2D:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "death"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite/Particles2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite/Polygon2D3:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite/Polygon2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.38038, -4.28959 ), Vector2( -4.84051, -8.24928 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite/Polygon2D:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -28.9469, -51.6375 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sprite/Polygon2D:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1, 1 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Sprite/Polygon2D2:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.6, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 3.711, -6.379 ), Vector2( -4.85627, -0.380579 ), Vector2( -6.49334, -0.56819 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Sprite/Polygon2D2:rotation_degrees")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.6, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 16.847, 16.847 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Sprite/Polygon2D2:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 0.6, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Sprite:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/9/type = "method"
+tracks/9/path = NodePath("States/Die")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "animation_finished"
+} ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -252,6 +486,54 @@ tracks/4/keys = {
 "update": 1,
 "values": [ true ]
 }
+tracks/5/type = "value"
+tracks/5/path = NodePath("Sprite/Polygon2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Sprite/Polygon2D:rotation_degrees")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Sprite/Polygon2D:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Sprite/Particles2D:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=7]
 resource_name = "stagger"
@@ -265,8 +547,44 @@ tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
+"update": 1,
 "values": [ -39.5812 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite/Polygon2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 6.09101, -5.14959 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite/Polygon2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite/Particles2D:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
 }
 
 [sub_resource type="RectangleShape2D" id=8]
@@ -281,16 +599,17 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Node2D" parent="."]
-scale = Vector2( 1.05147, 1 )
+scale = Vector2( 1.06806, 1 )
 
 [node name="Polygon2D" type="Polygon2D" parent="Sprite"]
-position = Vector2( 6.55354, -5.64066 )
-rotation = -0.690822
+position = Vector2( -4.84051, -8.24928 )
+rotation = -0.901244
 color = Color( 1, 0.305882, 0.305882, 1 )
 polygon = PoolVector2Array( -8, -16, 8, -16, 8, 0, -8, 0 )
 
 [node name="Polygon2D2" type="Polygon2D" parent="Sprite"]
-position = Vector2( 3.711, -6.379 )
+position = Vector2( -6.49334, -0.56819 )
+rotation = 0.294036
 offset = Vector2( -2.20906, 6.11732 )
 polygon = PoolVector2Array( 5.24596, -8.22357, 10.9291, -10.5432, 13.4807, -10.3113, 11.973, -8.80348, 6.17383, -6.83177, 6.75374, -5.55597, 5.94186, -4.97605, 5.12998, -6.59981, 2.23042, -5.67195, 1.99845, -6.36784, 4.43409, -7.52767, 3.62221, -9.49937, 4.3181, -9.84732 )
 
@@ -298,6 +617,13 @@ polygon = PoolVector2Array( 5.24596, -8.22357, 10.9291, -10.5432, 13.4807, -10.3
 visible = false
 color = Color( 0, 0, 0, 1 )
 polygon = PoolVector2Array( 2.10509, -18.3943, 9.03794, -13.0927, 2.71681, -15.3357 )
+
+[node name="Particles2D" type="Particles2D" parent="Sprite"]
+visible = false
+position = Vector2( -7.9732, 0 )
+scale = Vector2( 1.8, 1.8 )
+randomness = 0.42
+process_material = SubResource( 9 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( -8.14028, -4.03844, 0.123478, -8.22541, 7.50577, -4.25881, 0.123478, -0.0718327 )
@@ -333,40 +659,37 @@ shape = SubResource( 1 )
 one_shot = true
 
 [node name="Stagger" type="Node2D" parent="States"]
+editor/display_folded = true
 script = ExtResource( 6 )
 
 [node name="Timer" type="Timer" parent="States/Stagger"]
 one_shot = true
 
+[node name="Die" type="Node2D" parent="States"]
+script = ExtResource( 7 )
+
 [node name="Perception" type="Area2D" parent="."]
-editor/display_folded = true
 modulate = Color( 1, 1, 1, 0.247059 )
 collision_layer = 1024
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Perception"]
-position = Vector2( 0, -10 )
+position = Vector2( 0.231965, -11.0438 )
 shape = SubResource( 2 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="Neighbors" type="Area2D" parent="."]
-editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Neighbors"]
-position = Vector2( 0, -4.07815 )
+position = Vector2( 0.193712, -4.65929 )
 shape = SubResource( 3 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/attack = SubResource( 4 )
 anims/chase = SubResource( 5 )
+anims/death = SubResource( 10 )
 anims/idle = SubResource( 6 )
 anims/stagger = SubResource( 7 )
 
-[node name="Hurtbox" parent="." instance=ExtResource( 7 )]
+[node name="Hurtbox" parent="." instance=ExtResource( 8 )]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2( 0, -7.94165 )

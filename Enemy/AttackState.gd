@@ -14,6 +14,9 @@ func enter(entity):
 	$Cooldown.wait_time = ATTACK_COOLDOWN
 	_entity.facing = _entity.position.direction_to(_entity.target.position)
 
+func exit(entity):
+	$Cooldown.stop()
+
 func physics_process(entity, delta):
 	if not should_attack:
 		return
