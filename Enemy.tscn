@@ -1,18 +1,20 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Enemy.gd" type="Script" id=1]
 [ext_resource path="res://Enemy/IdleState.gd" type="Script" id=2]
 [ext_resource path="res://Enemy/ChaseState.gd" type="Script" id=3]
 [ext_resource path="res://Enemy/AttackState.gd" type="Script" id=4]
 [ext_resource path="res://Hitbox.tscn" type="PackedScene" id=5]
-
-[sub_resource type="CircleShape2D" id=3]
-radius = 14.3143
+[ext_resource path="res://Stagger.gd" type="Script" id=6]
+[ext_resource path="res://Hurtbox.tscn" type="PackedScene" id=7]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 136.878
+radius = 14.3143
 
 [sub_resource type="CircleShape2D" id=2]
+radius = 136.878
+
+[sub_resource type="CircleShape2D" id=3]
 radius = 25.3242
 
 [sub_resource type="Animation" id=4]
@@ -135,7 +137,7 @@ tracks/8/keys = {
 "values": [ Vector2( 1.05147, 1 ) ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=5]
 resource_name = "chase"
 length = 0.5
 loop = true
@@ -188,8 +190,7 @@ tracks/3/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1.2, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "idle"
+[sub_resource type="Animation" id=6]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:position")
@@ -239,6 +240,37 @@ tracks/3/keys = {
 "update": 0,
 "values": [ Vector2( 1.05147, 1 ) ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sprite:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "stagger"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite/Polygon2D:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -39.5812 ]
+}
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 7.1623, 7.29669 )
 
 [node name="Enemy" type="KinematicBody2D" groups=[
 "enemy",
@@ -252,7 +284,9 @@ __meta__ = {
 scale = Vector2( 1.05147, 1 )
 
 [node name="Polygon2D" type="Polygon2D" parent="Sprite"]
-color = Color( 1, 0.266667, 0.266667, 1 )
+position = Vector2( 6.55354, -5.64066 )
+rotation = -0.690822
+color = Color( 1, 0.305882, 0.305882, 1 )
 polygon = PoolVector2Array( -8, -16, 8, -16, 8, 0, -8, 0 )
 
 [node name="Polygon2D2" type="Polygon2D" parent="Sprite"]
@@ -261,8 +295,12 @@ offset = Vector2( -2.20906, 6.11732 )
 polygon = PoolVector2Array( 5.24596, -8.22357, 10.9291, -10.5432, 13.4807, -10.3113, 11.973, -8.80348, 6.17383, -6.83177, 6.75374, -5.55597, 5.94186, -4.97605, 5.12998, -6.59981, 2.23042, -5.67195, 1.99845, -6.36784, 4.43409, -7.52767, 3.62221, -9.49937, 4.3181, -9.84732 )
 
 [node name="Polygon2D3" type="Polygon2D" parent="Sprite"]
+visible = false
 color = Color( 0, 0, 0, 1 )
 polygon = PoolVector2Array( 2.10509, -18.3943, 9.03794, -13.0927, 2.71681, -15.3357 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -8.14028, -4.03844, 0.123478, -8.22541, 7.50577, -4.25881, 0.123478, -0.0718327 )
 
 [node name="States" type="Node2D" parent="."]
 
@@ -277,6 +315,7 @@ ACCELERATION = 90
 [node name="Timer" type="Timer" parent="States/Chase"]
 
 [node name="Attack" type="Node2D" parent="States"]
+editor/display_folded = true
 script = ExtResource( 4 )
 
 [node name="Polygon2D" type="Polygon2D" parent="States/Attack"]
@@ -288,39 +327,53 @@ visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="States/Attack/Hitbox"]
 position = Vector2( 15.454, -12.2344 )
-shape = SubResource( 3 )
+shape = SubResource( 1 )
 
 [node name="Cooldown" type="Timer" parent="States/Attack"]
 one_shot = true
 
+[node name="Stagger" type="Node2D" parent="States"]
+script = ExtResource( 6 )
+
+[node name="Timer" type="Timer" parent="States/Stagger"]
+one_shot = true
+
 [node name="Perception" type="Area2D" parent="."]
+editor/display_folded = true
 modulate = Color( 1, 1, 1, 0.247059 )
 collision_layer = 1024
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Perception"]
 position = Vector2( 0, -10 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( -8.14028, -4.03844, 0.123478, -8.22541, 7.50577, -4.25881, 0.123478, -0.0718327 )
-
 [node name="Neighbors" type="Area2D" parent="."]
+editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Neighbors"]
 position = Vector2( 0, -4.07815 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/attack = SubResource( 4 )
-anims/chase = SubResource( 6 )
-anims/idle = SubResource( 5 )
+anims/chase = SubResource( 5 )
+anims/idle = SubResource( 6 )
+anims/stagger = SubResource( 7 )
+
+[node name="Hurtbox" parent="." instance=ExtResource( 7 )]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2( 0, -7.94165 )
+shape = SubResource( 8 )
 [connection signal="timeout" from="States/Chase/Timer" to="States/Chase" method="_on_Timer_timeout"]
 [connection signal="timeout" from="States/Attack/Cooldown" to="States/Attack" method="_on_Cooldown_timeout"]
+[connection signal="timeout" from="States/Stagger/Timer" to="States/Stagger" method="_on_Timer_timeout"]
 [connection signal="body_entered" from="Perception" to="States/Idle" method="_on_Perception_body_entered"]
 [connection signal="body_exited" from="Perception" to="States/Chase" method="_on_Perception_body_exited"]
+[connection signal="hit" from="Hurtbox" to="." method="_on_Hurtbox_hit"]
