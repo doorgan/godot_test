@@ -679,7 +679,7 @@ script = ExtResource( 10 )
 [node name="Roll" type="Node2D" parent="States"]
 editor/display_folded = true
 script = ExtResource( 11 )
-speed = 400
+speed = 200
 duration = 0.7
 
 [node name="Timer" type="Timer" parent="States/Roll"]
@@ -717,4 +717,5 @@ script = ExtResource( 15 )
 visible = false
 position = Vector2( 40, 8.5 )
 shape = SubResource( 30 )
+[connection signal="hit" from="Hurtbox" to="." method="take_damage"]
 [connection signal="timeout" from="States/Roll/Timer" to="States/Roll" method="_on_Timer_timeout"]

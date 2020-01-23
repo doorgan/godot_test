@@ -1,5 +1,11 @@
 extends State
 
+export (bool) var DEBUG = false
+
+export (int) var ACCELERATION = 50
+export (int) var MASS = 20
+export (int) var ATTACK_RANGE = 25
+
 var _entity : Node2D
 var path: PoolVector2Array
 var path_index : = 0
@@ -14,13 +20,18 @@ func enter(entity):
 	navigation = _entity.get_tree().get_nodes_in_group("navigation")[0]
 	get_path()
 	$Timer.start()
+	_entity.animations.play("chase")
 
 func exit(entity):
 	_entity.velocity = Vector2.ZERO
 	$Timer.stop()
 
 func physics_process(entity, delta):
-	follow_path(delta)
+	if _entity.position.distance_to(_entity.target.position) <= ATTACK_RANGE:
+		_entity.switch_state("attack")
+	else:
+		follow_path(delta)
+		entity.facing = entity.velocity
 
 func get_path():
 	path_index = 0
@@ -54,7 +65,7 @@ func get_separation() -> Vector2:
 	
 	velocity - Vector2(velocity.x - _entity.position.x, velocity.y - _entity.position.y)
 	
-	separation = velocity.normalized() * 20
+	separation = velocity.normalized() * MASS
 	
 	return velocity.normalized()
 
@@ -75,8 +86,8 @@ func seek(
 		target : Vector2
 	) -> Vector2:
 	var pos = _entity.global_position
-	var desired_velocity = (target - pos).normalized() * 50
-	var steering = (desired_velocity - _entity.velocity) / 20
+	var desired_velocity = (target - pos).normalized() * ACCELERATION
+	var steering = (desired_velocity - _entity.velocity) / MASS
 	return steering
 
 func _on_Perception_body_exited(body):
@@ -84,6 +95,8 @@ func _on_Perception_body_exited(body):
 		_entity.switch_state("idle")
 
 func _draw():
+	if not DEBUG:
+		return
 	if not _entity:
 		return
 	draw_path()
