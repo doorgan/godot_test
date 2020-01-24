@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Agent",
+"language": "GDScript",
+"path": "res://Agent/Agent.gd"
+}, {
 "base": "Area2D",
 "class": "Hurtbox",
 "language": "GDScript",
@@ -17,11 +22,18 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "State",
 "language": "GDScript",
-"path": "res://Utils/State.gd"
+"path": "res://StateMachine/State.gd"
+}, {
+"base": "Node2D",
+"class": "StateMachine",
+"language": "GDScript",
+"path": "res://StateMachine/StateMachine.gd"
 } ]
 _global_script_class_icons={
+"Agent": "",
 "Hurtbox": "",
-"State": ""
+"State": "",
+"StateMachine": ""
 }
 
 [application]
@@ -29,10 +41,6 @@ _global_script_class_icons={
 config/name="Test"
 run/main_scene="res://World.tscn"
 config/icon="res://icon.png"
-
-[autoload]
-
-State="*res://Utils/State.gd"
 
 [importer_defaults]
 
