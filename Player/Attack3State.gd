@@ -5,7 +5,7 @@ var attacked_entities = []
 var can_chain = false
 
 func enter():
-	owner.animations.travel("attack3")
+	owner.play_animation("attack3")
 
 func physics_process(delta):
 	if not should_attack:
@@ -32,7 +32,7 @@ func attack_finished():
 	should_attack = false
 
 func animation_finished():
-	emit_signal("finished", "idle")
+	emit_signal("finished", "previous")
 
 func enable_chain():
 	can_chain = true

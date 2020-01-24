@@ -3,26 +3,29 @@ class_name StateMachine
 
 signal state_changed(state_name)
 
+export(NodePath) var OWNER
 export(NodePath) var INITIAL_STATE
 
 var states_map : = {}
 var states_stack : = []
 var current_state : State = null
 
-var _active : = false
+var _active : = false setget set_active
 
-func _ready():
+func start():
 	for child in get_children():
 		child.connect("finished", self, "_switch_state")
-	initialize(INITIAL_STATE)
-
-func initialize(start_state):
+		child.connect("pushed", self, "_push_state")
 	set_active(true)
+	states_stack.push_front(get_node(INITIAL_STATE))
 	current_state = states_stack[0]
 	current_state.enter()
 
 func _physics_process(delta):
 	current_state.physics_process(delta)
+
+func _unhandled_input(event):
+	current_state.handle_input(event)
 
 func _switch_state(state_name):
 	if not _active:
@@ -39,6 +42,12 @@ func _switch_state(state_name):
 	
 	if state_name != "previous":
 		current_state.enter()
+
+func _push_state(state_name):
+	if not _active:
+		return
+	states_stack.push_front(states_map[state_name])
+	_switch_state(state_name)
 
 func set_active(value):
 	_active = value

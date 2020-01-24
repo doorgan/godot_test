@@ -1,13 +1,14 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Enemy.gd" type="Script" id=1]
-[ext_resource path="res://Enemy/IdleState.gd" type="Script" id=2]
-[ext_resource path="res://Enemy/ChaseState.gd" type="Script" id=3]
-[ext_resource path="res://Enemy/AttackState.gd" type="Script" id=4]
-[ext_resource path="res://Hitbox.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Stagger.gd" type="Script" id=6]
-[ext_resource path="res://Die.gd" type="Script" id=7]
-[ext_resource path="res://Hurtbox.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Enemy/EnemyStates.gd" type="Script" id=2]
+[ext_resource path="res://Enemy/IdleState.gd" type="Script" id=3]
+[ext_resource path="res://Enemy/ChaseState.gd" type="Script" id=4]
+[ext_resource path="res://Enemy/AttackState.gd" type="Script" id=5]
+[ext_resource path="res://Hitbox.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Stagger.gd" type="Script" id=7]
+[ext_resource path="res://Die.gd" type="Script" id=8]
+[ext_resource path="res://Hurtbox.tscn" type="PackedScene" id=9]
 
 [sub_resource type="ParticlesMaterial" id=1]
 emission_shape = 1
@@ -625,26 +626,29 @@ process_material = SubResource( 1 )
 polygon = PoolVector2Array( -8.14028, -4.03844, 0.123478, -8.22541, 7.50577, -4.25881, 0.123478, -0.0718327 )
 
 [node name="States" type="Node2D" parent="."]
+script = ExtResource( 2 )
+OWNER = NodePath("..")
+INITIAL_STATE = NodePath("Idle")
 
 [node name="Idle" type="Node2D" parent="States"]
-script = ExtResource( 2 )
+script = ExtResource( 3 )
 
 [node name="Chase" type="Node2D" parent="States"]
 editor/display_folded = true
-script = ExtResource( 3 )
+script = ExtResource( 4 )
 ACCELERATION = 90
 
 [node name="Timer" type="Timer" parent="States/Chase"]
 
 [node name="Attack" type="Node2D" parent="States"]
 editor/display_folded = true
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 
 [node name="Polygon2D" type="Polygon2D" parent="States/Attack"]
 visible = false
 polygon = PoolVector2Array( 7.62629, -22.6676, 14.4948, -17.5162, 17.2851, -10.6478, 17.2851, -2.49148, 23.5096, -3.77932, 20.5047, -16.0138, 11.9191, -21.5944 )
 
-[node name="Hitbox" parent="States/Attack" instance=ExtResource( 5 )]
+[node name="Hitbox" parent="States/Attack" instance=ExtResource( 6 )]
 visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="States/Attack/Hitbox"]
@@ -656,13 +660,13 @@ one_shot = true
 
 [node name="Stagger" type="Node2D" parent="States"]
 editor/display_folded = true
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 
 [node name="Timer" type="Timer" parent="States/Stagger"]
 one_shot = true
 
 [node name="Die" type="Node2D" parent="States"]
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 
 [node name="Perception" type="Area2D" parent="."]
 modulate = Color( 1, 1, 1, 0.247059 )
@@ -685,7 +689,7 @@ anims/death = SubResource( 7 )
 anims/idle = SubResource( 8 )
 anims/stagger = SubResource( 9 )
 
-[node name="Hurtbox" parent="." instance=ExtResource( 8 )]
+[node name="Hurtbox" parent="." instance=ExtResource( 9 )]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2( 0, -7.94165 )

@@ -7,10 +7,10 @@ var can_chain = false
 
 func handle_input(event):
 	if can_chain and Input.is_action_just_pressed("attack"):
-		owner.switch_state("attack3")
+		emit_signal("finished", "attack3")
 
 func enter():
-	owner.animations.travel("attack2")
+	owner.play_animation("attack2")
 
 func physics_process(delta):
 	if not should_attack:

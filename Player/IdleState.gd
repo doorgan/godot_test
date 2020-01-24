@@ -1,15 +1,15 @@
 extends State
 
-func physics_process(entity, delta):
+func physics_process(delta):
 	if Input.is_action_just_pressed("roll"):
-		entity.switch_state("roll")
+		emit_signal("finished", "roll")
 	
 	if Input.is_action_just_pressed("attack"):
-		entity.switch_state("attack1")
+		emit_signal("pushed", "attack1")
 	
-	var axis = entity.get_input_axis()
+	var axis = owner.get_input_axis()
 	if axis != Vector2.ZERO:
-		entity.switch_state("run")
+		emit_signal("finished", "run")
 
-func enter(entity):
-	entity.animations.travel("idle")
+func enter():
+	owner.play_animation("idle")

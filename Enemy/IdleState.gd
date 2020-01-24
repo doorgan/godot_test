@@ -1,12 +1,9 @@
 extends State
 
-var _entity
-
-func enter(entity):
-	_entity = entity
-	_entity.animations.play("idle")
+func enter():
+	owner.get_node("AnimationPlayer").play("idle")
 
 func _on_Perception_body_entered(body):
 	if body.is_in_group("player"):
-		_entity.target = body
-		_entity.switch_state("chase")
+		owner.target = body
+		emit_signal("finished", "chase")

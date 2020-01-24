@@ -5,34 +5,13 @@ signal state_change(new_state)
 var MAX_SPEED: float = 30
 var ACCELERATION: float = 200
 var motion: Vector2 = Vector2()
-var facing: Vector2 = Vector2.RIGHT
+var facing: Vector2 = Vector2.RIGHT setget set_facing
 var animations
-
-onready var states = {
-	"idle": $States/Idle,
-	"run": $States/Run,
-	"roll": $States/Roll,
-	"attack1": $States/Attack,
-	"attack2": $States/Attack2,
-	"attack3": $States/Attack3
-}
-onready var state = states["idle"]
-
-func _physics_process(delta):
-	state.physics_process(self, delta)
-
-func _unhandled_input(event):
-	state.handle_input(self, event)
-
-func switch_state(new_state):
-	state.exit(self)
-	state = states[new_state]
-	state.enter(self)
-	emit_signal("state_change", new_state)
 
 func _ready():
 	$AnimationTree.active = true
 	animations = $AnimationTree.get("parameters/playback")
+	$States.start()
 
 func get_input_axis() -> Vector2:
 	var axis = Vector2.ZERO
@@ -42,3 +21,13 @@ func get_input_axis() -> Vector2:
 
 func take_damage(attacker):
 	print("Attacked by " + attacker.name)
+
+func set_facing(new_dir):
+	facing = new_dir
+	if facing.x > 0:
+		scale.x = scale.y * 1
+	if facing.x < 0:
+		scale.x = scale.y * -1
+
+func play_animation(anim):
+	$AnimationTree.get("parameters/playback").travel(anim)

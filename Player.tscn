@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://sprites/Skeleton/s_skeleton_idle_strip3-sheet.png" type="Texture" id=2]
@@ -8,13 +8,14 @@
 [ext_resource path="res://sprites/Skeleton/s_skeleton_attack_three_strip6.png" type="Texture" id=6]
 [ext_resource path="res://sprites/Skeleton/s_skeleton_roll_strip7.png" type="Texture" id=7]
 [ext_resource path="res://sprites/Skeleton/s_skeleton_run_strip6.png" type="Texture" id=8]
-[ext_resource path="res://Player/IdleState.gd" type="Script" id=9]
-[ext_resource path="res://Player/RunState.gd" type="Script" id=10]
-[ext_resource path="res://Player/RollState.gd" type="Script" id=11]
-[ext_resource path="res://Player/Attack1State.gd" type="Script" id=12]
-[ext_resource path="res://Hitbox.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Player/Attack2State.gd" type="Script" id=14]
-[ext_resource path="res://Player/Attack3State.gd" type="Script" id=15]
+[ext_resource path="res://Enemy/PlayerStates.gd" type="Script" id=9]
+[ext_resource path="res://Player/IdleState.gd" type="Script" id=10]
+[ext_resource path="res://Player/RunState.gd" type="Script" id=11]
+[ext_resource path="res://Player/RollState.gd" type="Script" id=12]
+[ext_resource path="res://Player/Attack1State.gd" type="Script" id=13]
+[ext_resource path="res://Hitbox.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Player/Attack2State.gd" type="Script" id=15]
+[ext_resource path="res://Player/Attack3State.gd" type="Script" id=16]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 9.58963, 8.23992 )
@@ -669,16 +670,19 @@ parameters/playback = SubResource( 27 )
 
 [node name="States" type="Node2D" parent="."]
 position = Vector2( 0, -23.5 )
+script = ExtResource( 9 )
+OWNER = NodePath("..")
+INITIAL_STATE = NodePath("Idle")
 
 [node name="Idle" type="Node2D" parent="States"]
-script = ExtResource( 9 )
+script = ExtResource( 10 )
 
 [node name="Run" type="Node2D" parent="States"]
-script = ExtResource( 10 )
+script = ExtResource( 11 )
 
 [node name="Roll" type="Node2D" parent="States"]
 editor/display_folded = true
-script = ExtResource( 11 )
+script = ExtResource( 12 )
 speed = 200
 duration = 0.7
 
@@ -687,9 +691,9 @@ wait_time = 0.5
 one_shot = true
 
 [node name="Attack" type="Node2D" parent="States"]
-script = ExtResource( 12 )
+script = ExtResource( 13 )
 
-[node name="Hitbox" parent="States/Attack" instance=ExtResource( 13 )]
+[node name="Hitbox" parent="States/Attack" instance=ExtResource( 14 )]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="States/Attack/Hitbox"]
 visible = false
@@ -698,9 +702,9 @@ scale = Vector2( 2, 2 )
 shape = SubResource( 28 )
 
 [node name="Attack2" type="Node2D" parent="States"]
-script = ExtResource( 14 )
+script = ExtResource( 15 )
 
-[node name="Hitbox" parent="States/Attack2" instance=ExtResource( 13 )]
+[node name="Hitbox" parent="States/Attack2" instance=ExtResource( 14 )]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="States/Attack2/Hitbox"]
 visible = false
@@ -709,9 +713,9 @@ scale = Vector2( 2, 2 )
 shape = SubResource( 29 )
 
 [node name="Attack3" type="Node2D" parent="States"]
-script = ExtResource( 15 )
+script = ExtResource( 16 )
 
-[node name="Hitbox" parent="States/Attack3" instance=ExtResource( 13 )]
+[node name="Hitbox" parent="States/Attack3" instance=ExtResource( 14 )]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="States/Attack3/Hitbox"]
 visible = false

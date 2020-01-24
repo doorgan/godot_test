@@ -2,6 +2,7 @@ extends Node2D
 class_name State
 
 signal finished(next_state)
+signal pushed(next_state)
 
 func handle_input(event):
 	pass

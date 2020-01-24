@@ -10,7 +10,7 @@ func handle_input(event):
 			emit_signal("finished", "attack2")
 
 func enter():
-	owner.animations.travel("attack1")
+	owner.play_animation("attack1")
 
 func physics_process(delta):
 	if not should_attack:

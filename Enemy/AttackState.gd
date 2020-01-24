@@ -1,35 +1,34 @@
 extends State
 
-var _entity : Object
 var attacked_entities : Array
 var animations : AnimationPlayer
 var should_attack : = false
 
 const ATTACK_COOLDOWN = 1
 
-func enter(entity):
-	_entity = entity
-	_entity.animations.seek(0)
-	_entity.animations.play("attack")
+func enter():
+	owner = owner
+	owner.animations.seek(0)
+	owner.animations.play("attack")
 	$Cooldown.wait_time = ATTACK_COOLDOWN
-	_entity.facing = _entity.position.direction_to(_entity.target.position)
+	owner.facing = owner.position.direction_to(owner.target.position)
 
-func exit(entity):
+func exit():
 	$Cooldown.stop()
 
-func physics_process(entity, delta):
-	entity.move_and_slide(get_separation())
+func physics_process(delta):
+	owner.move_and_slide(get_separation())
 	if not should_attack:
 		return
 	var targets = $Hitbox.get_overlapping_areas()
 	for target in targets:
 		if target is Hurtbox:
-			if entity.is_a_parent_of(target):
+			if owner.is_a_parent_of(target):
 				continue
 			if attacked_entities.has(target):
 				continue
 			attacked_entities.append(target)
-			target.hit_landed(entity)
+			target.hit_landed(owner)
 
 func attack_start():
 	should_attack = true
@@ -43,17 +42,17 @@ func finnish_attack():
 	$Cooldown.start()
 
 func _on_Cooldown_timeout():
-	_entity.switch_state("chase")
+	emit_signal("finished", "chase")
 
 func get_separation() -> Vector2:
 	var velocity : = Vector2.ZERO
 	var neighbor_count : = 0
 	
-	for agent in _entity.get_node("Neighbors").get_overlapping_bodies():
+	for agent in owner.get_node("Neighbors").get_overlapping_bodies():
 		if (agent.is_in_group("player") or agent.is_in_group("enemy") or agent.is_in_group("environment")) \
-			and agent.position.distance_to(_entity.position) < 20:
-			velocity.x += agent.position.x - _entity.position.x
-			velocity.y += agent.position.y - _entity.position.y
+			and agent.position.distance_to(owner.position) < 20:
+			velocity.x += agent.position.x - owner.position.x
+			velocity.y += agent.position.y - owner.position.y
 			neighbor_count += 1
 	if neighbor_count == 0:
 		return velocity
@@ -64,6 +63,6 @@ func get_separation() -> Vector2:
 	velocity.x *= -1
 	velocity.y *= -1
 	
-	velocity - Vector2(velocity.x - _entity.position.x, velocity.y - _entity.position.y)
+	velocity - Vector2(velocity.x - owner.position.x, velocity.y - owner.position.y)
 	
 	return velocity.normalized() * 15
