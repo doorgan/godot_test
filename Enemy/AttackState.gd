@@ -18,6 +18,7 @@ func exit(entity):
 	$Cooldown.stop()
 
 func physics_process(entity, delta):
+	entity.move_and_slide(get_separation())
 	if not should_attack:
 		return
 	var targets = $Hitbox.get_overlapping_areas()
@@ -43,3 +44,26 @@ func finnish_attack():
 
 func _on_Cooldown_timeout():
 	_entity.switch_state("chase")
+
+func get_separation() -> Vector2:
+	var velocity : = Vector2.ZERO
+	var neighbor_count : = 0
+	
+	for agent in _entity.get_node("Neighbors").get_overlapping_bodies():
+		if (agent.is_in_group("player") or agent.is_in_group("enemy") or agent.is_in_group("environment")) \
+			and agent.position.distance_to(_entity.position) < 20:
+			velocity.x += agent.position.x - _entity.position.x
+			velocity.y += agent.position.y - _entity.position.y
+			neighbor_count += 1
+	if neighbor_count == 0:
+		return velocity
+	
+	velocity.x /= neighbor_count
+	velocity.y /= neighbor_count
+	
+	velocity.x *= -1
+	velocity.y *= -1
+	
+	velocity - Vector2(velocity.x - _entity.position.x, velocity.y - _entity.position.y)
+	
+	return velocity.normalized() * 15

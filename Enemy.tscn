@@ -9,7 +9,7 @@
 [ext_resource path="res://Die.gd" type="Script" id=7]
 [ext_resource path="res://Hurtbox.tscn" type="PackedScene" id=8]
 
-[sub_resource type="ParticlesMaterial" id=9]
+[sub_resource type="ParticlesMaterial" id=1]
 emission_shape = 1
 emission_sphere_radius = 1.0
 flag_disable_z = true
@@ -21,17 +21,16 @@ orbit_velocity_random = 0.0
 angle_random = 0.48
 color = Color( 1, 0.913725, 0.698039, 1 )
 
-[sub_resource type="CircleShape2D" id=1]
+[sub_resource type="CircleShape2D" id=2]
 radius = 14.3143
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=3]
 radius = 136.878
 
-[sub_resource type="CircleShape2D" id=3]
+[sub_resource type="CircleShape2D" id=4]
 radius = 25.3242
 
-[sub_resource type="Animation" id=4]
-resource_name = "attack"
+[sub_resource type="Animation" id=5]
 length = 0.7
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:position")
@@ -198,8 +197,7 @@ tracks/12/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "chase"
+[sub_resource type="Animation" id=6]
 length = 0.5
 loop = true
 tracks/0/type = "value"
@@ -299,7 +297,7 @@ tracks/7/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=7]
 resource_name = "death"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite/Particles2D:visible")
@@ -424,7 +422,7 @@ tracks/9/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=8]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:position")
@@ -535,8 +533,7 @@ tracks/8/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="Animation" id=7]
-resource_name = "stagger"
+[sub_resource type="Animation" id=9]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite/Polygon2D:rotation_degrees")
@@ -587,7 +584,7 @@ tracks/3/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="RectangleShape2D" id=8]
+[sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 7.1623, 7.29669 )
 
 [node name="Enemy" type="KinematicBody2D" groups=[
@@ -599,11 +596,10 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Node2D" parent="."]
+editor/display_folded = true
 scale = Vector2( 1.06806, 1 )
 
 [node name="Polygon2D" type="Polygon2D" parent="Sprite"]
-position = Vector2( -4.84051, -8.24928 )
-rotation = -0.901244
 color = Color( 1, 0.305882, 0.305882, 1 )
 polygon = PoolVector2Array( -8, -16, 8, -16, 8, 0, -8, 0 )
 
@@ -623,7 +619,7 @@ visible = false
 position = Vector2( -7.9732, 0 )
 scale = Vector2( 1.8, 1.8 )
 randomness = 0.42
-process_material = SubResource( 9 )
+process_material = SubResource( 1 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( -8.14028, -4.03844, 0.123478, -8.22541, 7.50577, -4.25881, 0.123478, -0.0718327 )
@@ -653,7 +649,7 @@ visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="States/Attack/Hitbox"]
 position = Vector2( 15.454, -12.2344 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Cooldown" type="Timer" parent="States/Attack"]
 one_shot = true
@@ -674,26 +670,26 @@ collision_layer = 1024
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Perception"]
 position = Vector2( 0.231965, -11.0438 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Neighbors" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Neighbors"]
 position = Vector2( 0.193712, -4.65929 )
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/attack = SubResource( 4 )
-anims/chase = SubResource( 5 )
-anims/death = SubResource( 10 )
-anims/idle = SubResource( 6 )
-anims/stagger = SubResource( 7 )
+anims/attack = SubResource( 5 )
+anims/chase = SubResource( 6 )
+anims/death = SubResource( 7 )
+anims/idle = SubResource( 8 )
+anims/stagger = SubResource( 9 )
 
 [node name="Hurtbox" parent="." instance=ExtResource( 8 )]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2( 0, -7.94165 )
-shape = SubResource( 8 )
+shape = SubResource( 10 )
 [connection signal="timeout" from="States/Chase/Timer" to="States/Chase" method="_on_Timer_timeout"]
 [connection signal="timeout" from="States/Attack/Cooldown" to="States/Attack" method="_on_Cooldown_timeout"]
 [connection signal="timeout" from="States/Stagger/Timer" to="States/Stagger" method="_on_Timer_timeout"]
