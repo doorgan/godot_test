@@ -52,7 +52,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.4, 0.5 ),
+"times": PoolRealArray( 0, 0.4, 0.6 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ false, true, false ]
@@ -84,7 +84,7 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.4, 0.5 ),
+"times": PoolRealArray( 0, 0.4, 0.6 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ false, true, false ]
@@ -297,6 +297,18 @@ tracks/7/keys = {
 "update": 1,
 "values": [ true, false ]
 }
+tracks/8/type = "value"
+tracks/8/path = NodePath("States/Attack/Polygon2D:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=7]
 resource_name = "death"
@@ -422,6 +434,18 @@ tracks/9/keys = {
 "method": "animation_finished"
 } ]
 }
+tracks/10/type = "value"
+tracks/10/path = NodePath("States/Attack/Polygon2D:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=8]
 length = 0.2
@@ -533,6 +557,18 @@ tracks/8/keys = {
 "update": 1,
 "values": [ false ]
 }
+tracks/9/type = "value"
+tracks/9/path = NodePath("States/Attack/Polygon2D:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=9]
 length = 0.1
@@ -584,6 +620,18 @@ tracks/3/keys = {
 "update": 1,
 "values": [ false ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("States/Attack/Polygon2D:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 7.1623, 7.29669 )
@@ -597,21 +645,18 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Node2D" parent="."]
-editor/display_folded = true
-scale = Vector2( 1.06806, 1 )
+scale = Vector2( 1.05147, 1 )
 
 [node name="Polygon2D" type="Polygon2D" parent="Sprite"]
 color = Color( 1, 0.305882, 0.305882, 1 )
 polygon = PoolVector2Array( -8, -16, 8, -16, 8, 0, -8, 0 )
 
 [node name="Polygon2D2" type="Polygon2D" parent="Sprite"]
-position = Vector2( -6.49334, -0.56819 )
-rotation = 0.294036
+position = Vector2( 3.711, -6.379 )
 offset = Vector2( -2.20906, 6.11732 )
 polygon = PoolVector2Array( 5.24596, -8.22357, 10.9291, -10.5432, 13.4807, -10.3113, 11.973, -8.80348, 6.17383, -6.83177, 6.75374, -5.55597, 5.94186, -4.97605, 5.12998, -6.59981, 2.23042, -5.67195, 1.99845, -6.36784, 4.43409, -7.52767, 3.62221, -9.49937, 4.3181, -9.84732 )
 
 [node name="Polygon2D3" type="Polygon2D" parent="Sprite"]
-visible = false
 color = Color( 0, 0, 0, 1 )
 polygon = PoolVector2Array( 2.10509, -18.3943, 9.03794, -13.0927, 2.71681, -15.3357 )
 
@@ -627,7 +672,6 @@ polygon = PoolVector2Array( -8.14028, -4.03844, 0.123478, -8.22541, 7.50577, -4.
 
 [node name="States" type="Node2D" parent="."]
 script = ExtResource( 2 )
-OWNER = NodePath("..")
 INITIAL_STATE = NodePath("Idle")
 
 [node name="Idle" type="Node2D" parent="States"]
@@ -641,7 +685,6 @@ ACCELERATION = 90
 [node name="Timer" type="Timer" parent="States/Chase"]
 
 [node name="Attack" type="Node2D" parent="States"]
-editor/display_folded = true
 script = ExtResource( 5 )
 
 [node name="Polygon2D" type="Polygon2D" parent="States/Attack"]
@@ -649,6 +692,7 @@ visible = false
 polygon = PoolVector2Array( 7.62629, -22.6676, 14.4948, -17.5162, 17.2851, -10.6478, 17.2851, -2.49148, 23.5096, -3.77932, 20.5047, -16.0138, 11.9191, -21.5944 )
 
 [node name="Hitbox" parent="States/Attack" instance=ExtResource( 6 )]
+editor/display_folded = true
 visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="States/Attack/Hitbox"]
@@ -669,6 +713,7 @@ one_shot = true
 script = ExtResource( 8 )
 
 [node name="Perception" type="Area2D" parent="."]
+editor/display_folded = true
 modulate = Color( 1, 1, 1, 0.247059 )
 collision_layer = 1024
 
@@ -690,6 +735,7 @@ anims/idle = SubResource( 8 )
 anims/stagger = SubResource( 9 )
 
 [node name="Hurtbox" parent="." instance=ExtResource( 9 )]
+editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2( 0, -7.94165 )

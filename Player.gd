@@ -8,6 +8,10 @@ var motion: Vector2 = Vector2()
 var facing: Vector2 = Vector2.RIGHT setget set_facing
 var animations
 
+# Flags
+var is_shielding : = false
+var can_parry : = false
+
 func _ready():
 	$AnimationTree.active = true
 	animations = $AnimationTree.get("parameters/playback")
@@ -31,3 +35,15 @@ func set_facing(new_dir):
 
 func play_animation(anim):
 	$AnimationTree.get("parameters/playback").travel(anim)
+
+
+func _on_hit(attacker):
+	if is_shielding and is_shield_facing(attacker.global_position):
+		print("blocked!")
+		return
+	take_damage(attacker)
+
+func is_shield_facing(hit_position : Vector2) -> bool:
+	var shield_direction = sign(facing.x)
+	var hit_direction = sign(global_position.x - hit_position.x)
+	return shield_direction != hit_direction

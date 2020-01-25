@@ -14,6 +14,7 @@ func enter():
 	owner.facing = owner.position.direction_to(owner.target.position)
 
 func exit():
+	should_attack = false
 	$Cooldown.stop()
 
 func physics_process(delta):
@@ -31,6 +32,14 @@ func physics_process(delta):
 			target.hit_landed(owner)
 
 func attack_start():
+	var targets = $Hitbox.get_overlapping_areas()
+	for target in targets:
+		if target.is_in_group("defensebox") \
+			and not owner.is_a_parent_of(target) \
+			and target.owner.can_parry \
+			and sign(owner.facing.x) != sign(target.owner.facing.x):
+			owner.stagger(owner.target)
+			return
 	should_attack = true
 	attacked_entities = []
 

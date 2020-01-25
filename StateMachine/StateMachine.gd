@@ -3,7 +3,6 @@ class_name StateMachine
 
 signal state_changed(state_name)
 
-export(NodePath) var OWNER
 export(NodePath) var INITIAL_STATE
 
 var states_map : = {}

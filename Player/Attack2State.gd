@@ -6,8 +6,11 @@ var attacked_entities = []
 var can_chain = false
 
 func handle_input(event):
-	if can_chain and Input.is_action_just_pressed("attack"):
-		emit_signal("finished", "attack3")
+	if can_chain:
+		if Input.is_action_just_pressed("attack"):
+			emit_signal("finished", "attack3")
+		if Input.is_action_just_pressed("roll"):
+			emit_signal("finished", "roll")
 
 func enter():
 	owner.play_animation("attack2")

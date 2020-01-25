@@ -3,14 +3,19 @@ extends State
 export var speed = 600
 export var duration = 0.3
 
+var direction = Vector2.ZERO
+
 func enter():
-	owner.play_animations("roll")
+	owner.play_animation("roll")
 	$Timer.wait_time = duration
 	$Timer.start()
+	direction = owner.get_input_axis()
+	if direction == Vector2.ZERO:
+		direction = owner.facing
 
 func physics_process(delta):
 	var motion = owner.motion
-	motion += owner.facing.normalized() * speed * delta
+	motion += direction.normalized() * speed * delta
 	owner.move_and_collide(motion)
 
 func exit():

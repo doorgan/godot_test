@@ -7,6 +7,7 @@ func start():
 		"roll": $Roll,
 		"attack1": $Attack,
 		"attack2": $Attack2,
-		"attack3": $Attack3
+		"attack3": $Attack3,
+		"shield": $Shield
 	}
 	.start()

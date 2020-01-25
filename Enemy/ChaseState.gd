@@ -6,6 +6,8 @@ export (int) var ACCELERATION = 50
 export (int) var MASS = 20
 export (int) var ATTACK_RANGE = 25
 
+var agent : Agent
+
 var path: PoolVector2Array
 var path_index : = 0
 var velocity : = Vector2.ZERO
@@ -25,68 +27,24 @@ func exit():
 	$Timer.stop()
 
 func physics_process(delta):
-	if owner.position.distance_to(owner.target.position) <= ATTACK_RANGE:
-		emit_signal("finished", "attack")
-	else:
+	if owner.position.distance_to(owner.target.position) > ATTACK_RANGE:
 		follow_path(delta)
 		owner.facing = owner.velocity
+	else:
+		if not owner.target.is_shielding:
+			emit_signal("finished", "attack")
 
 func get_path():
-	path_index = 0
+	agent = Agent.new(owner)
 	path = navigation.get_simple_path(owner.global_position, owner.target.global_position)
 	update()
 
 func follow_path(delta):
-	steer = path_follow()
-	steer += get_separation()
+	steer = agent.follow_path(path)
+	steer += agent.get_separation(owner.get_node("Neighbors"))
 	
 	owner.velocity = owner.move_and_slide(owner.velocity + steer)
 	update()
-
-func get_separation() -> Vector2:
-	var velocity : = Vector2.ZERO
-	var neighbor_count : = 0
-	
-	for agent in owner.get_node("Neighbors").get_overlapping_bodies():
-		if agent.is_in_group("enemy") or agent.is_in_group("environment"):
-			velocity.x += agent.position.x - owner.position.x
-			velocity.y += agent.position.y - owner.position.y
-			neighbor_count += 1
-	if neighbor_count == 0:
-		return velocity
-	
-	velocity.x /= neighbor_count
-	velocity.y /= neighbor_count
-	
-	velocity.x *= -1
-	velocity.y *= -1
-	
-	velocity - Vector2(velocity.x - owner.position.x, velocity.y - owner.position.y)
-	
-	separation = velocity.normalized() * MASS
-	
-	return velocity.normalized()
-
-func path_follow():
-	if !path:
-		return Vector2.ZERO
-	var goal = path[path_index]
-	if owner.global_position.distance_to(goal) <= 10:
-		path_index += 1
-		if path_index >= path.size():
-			path_index = path.size() - 1
-	if goal:
-		return seek(goal)
-	else:
-		return Vector2.ZERO
-
-func seek(
-		target : Vector2
-	) -> Vector2:
-	var pos = owner.global_position
-	var desired_velocity = (target - pos).normalized() * ACCELERATION
-	var steering = (desired_velocity - owner.velocity) / MASS
-	return steering
 
 func _on_Perception_body_exited(body):
 	if body.is_in_group("player"):

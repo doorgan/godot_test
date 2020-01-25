@@ -24,8 +24,11 @@ func take_damage(attacker):
 		dead = true
 		$States._switch_state("die")
 	else:
-		last_attacker = attacker
-		$States._push_state("stagger")
+		stagger(attacker)
+
+func stagger(attacker):
+	last_attacker = attacker
+	$States._push_state("stagger")
 
 func remove():
 	$States.set_active(false)
