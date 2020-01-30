@@ -661,10 +661,10 @@ color = Color( 0, 0, 0, 1 )
 polygon = PoolVector2Array( 2.10509, -18.3943, 9.03794, -13.0927, 2.71681, -15.3357 )
 
 [node name="Particles2D" type="Particles2D" parent="Sprite"]
-visible = false
 position = Vector2( -7.9732, 0 )
 scale = Vector2( 1.8, 1.8 )
 randomness = 0.42
+local_coords = false
 process_material = SubResource( 1 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
@@ -678,11 +678,13 @@ INITIAL_STATE = NodePath("Idle")
 script = ExtResource( 3 )
 
 [node name="Chase" type="Node2D" parent="States"]
-editor/display_folded = true
 script = ExtResource( 4 )
 ACCELERATION = 90
 
 [node name="Timer" type="Timer" parent="States/Chase"]
+
+[node name="StrafeTimer" type="Timer" parent="States/Chase"]
+one_shot = true
 
 [node name="Attack" type="Node2D" parent="States"]
 script = ExtResource( 5 )
@@ -692,7 +694,6 @@ visible = false
 polygon = PoolVector2Array( 7.62629, -22.6676, 14.4948, -17.5162, 17.2851, -10.6478, 17.2851, -2.49148, 23.5096, -3.77932, 20.5047, -16.0138, 11.9191, -21.5944 )
 
 [node name="Hitbox" parent="States/Attack" instance=ExtResource( 6 )]
-editor/display_folded = true
 visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="States/Attack/Hitbox"]
@@ -703,7 +704,6 @@ shape = SubResource( 2 )
 one_shot = true
 
 [node name="Stagger" type="Node2D" parent="States"]
-editor/display_folded = true
 script = ExtResource( 7 )
 
 [node name="Timer" type="Timer" parent="States/Stagger"]
@@ -713,7 +713,6 @@ one_shot = true
 script = ExtResource( 8 )
 
 [node name="Perception" type="Area2D" parent="."]
-editor/display_folded = true
 modulate = Color( 1, 1, 1, 0.247059 )
 collision_layer = 1024
 
@@ -735,7 +734,6 @@ anims/idle = SubResource( 8 )
 anims/stagger = SubResource( 9 )
 
 [node name="Hurtbox" parent="." instance=ExtResource( 9 )]
-editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2( 0, -7.94165 )

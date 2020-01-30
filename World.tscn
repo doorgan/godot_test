@@ -843,7 +843,6 @@ points = PoolVector2Array( 16, 12, 16, 16, 12, 16, 12, 12 )
 [node name="YSort" type="YSort" parent="."]
 
 [node name="Player" parent="YSort" instance=ExtResource( 1 )]
-editor/display_folded = true
 position = Vector2( 370, 300 )
 scale = Vector2( 1, 1 )
 
@@ -881,7 +880,6 @@ position = Vector2( 160, 91.441 )
 [node name="Navigation2D" type="Navigation2D" parent="YSort" groups=[
 "navigation",
 ]]
-editor/display_folded = true
 
 [node name="TileMap" type="TileMap" parent="YSort/Navigation2D" groups=[
 "wall",

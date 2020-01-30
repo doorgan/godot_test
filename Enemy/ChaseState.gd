@@ -4,7 +4,9 @@ export (bool) var DEBUG = false
 
 export (int) var ACCELERATION = 50
 export (int) var MASS = 20
-export (int) var ATTACK_RANGE = 25
+export (int) var ATTACK_RANGE = 30
+export (int) var STRAFE_RANGE = 45
+export (int) var STRAFE_VELOCITY = 20
 
 var agent : Agent
 
@@ -14,7 +16,19 @@ var velocity : = Vector2.ZERO
 var steer : = Vector2.ZERO
 var separation : = Vector2.ZERO
 
+enum StrafeDirection {CW, CCW}
+var strafe_direction = StrafeDirection.CW
+
 var navigation: Navigation2D
+
+enum {
+	CHASING,
+	STRAFING,
+	TAKING_DISTANCE,
+	FINISHED
+}
+
+var state = CHASING
 
 func enter():
 	navigation = owner.get_tree().get_nodes_in_group("navigation")[0]
@@ -27,18 +41,76 @@ func exit():
 	$Timer.stop()
 
 func physics_process(delta):
-	if owner.position.distance_to(owner.target.position) > ATTACK_RANGE:
-		follow_path(delta)
-		owner.facing = owner.velocity
-	else:
-		if not owner.target.is_shielding:
+	var distance_to_target = owner.position.distance_to(owner.target.position)
+	var direction_to_target = owner.position.direction_to(owner.target.position)
+
+	if distance_to_target > ATTACK_RANGE:
+		state = CHASING
+	
+	if owner.target.is_shielding \
+		and distance_to_target <= STRAFE_RANGE \
+		and sign(owner.facing.x) != sign(owner.target.facing.x):
+		state = STRAFING
+		if distance_to_target < STRAFE_RANGE * 0.75:
+			state = TAKING_DISTANCE
+	
+	if distance_to_target <= ATTACK_RANGE \
+		and ( \
+		!owner.target.is_shielding \
+		or sign(owner.facing.x) == sign(owner.target.facing.x)
+		):
+		state = FINISHED
+	
+	print(state)
+
+	match state:
+		CHASING:
+			follow_path(delta)
+			owner.facing = owner.velocity
+		STRAFING:
+			strafe()
+		TAKING_DISTANCE:
+			take_distance()
+		FINISHED:
 			emit_signal("finished", "attack")
+	print(distance_to_target)
+
+func strafe():
+	steer = get_strafe_vector()
+	owner.velocity = owner.move_and_slide(steer * STRAFE_VELOCITY)
+	owner.facing = owner.position.direction_to(owner.target.position)
+
+func take_distance():
+	var direction = owner.position.direction_to(owner.target.position)
+	owner.velocity = owner.move_and_slide(-direction * STRAFE_VELOCITY)
+	owner.facing = direction
+
+func get_strafe_vector() -> Vector2:
+	var dir = owner.position.direction_to(owner.target.position)
+	
+	if $StrafeTimer.is_stopped():
+		var cw = rand_range(0, 1) > 0.5
+		if cw:
+			strafe_direction = StrafeDirection.CW
+		else:
+			strafe_direction = StrafeDirection.CCW
+		
+		$StrafeTimer.start()
+	
+	var strafe : Vector2
+	if strafe_direction == StrafeDirection.CW:
+		strafe = Vector2(dir.y, -dir.x)
+	else:
+		strafe = Vector2(-dir.y, dir.x)
+	
+	return strafe.normalized()
 
 func get_path():
 	agent = Agent.new(owner)
 	path = navigation.get_simple_path(owner.global_position, owner.target.global_position)
 	update()
 
+# warning-ignore:unused_argument
 func follow_path(delta):
 	steer = agent.follow_path(path)
 	steer += agent.get_separation(owner.get_node("Neighbors"))
