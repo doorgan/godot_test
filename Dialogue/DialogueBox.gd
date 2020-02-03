@@ -1,12 +1,12 @@
-extends Control
+extends CanvasLayer
 
 var dialogue : Dialogue
 
 func start(dialogue):
 	dialogue = dialogue
-	$Panel/Title.text = dialogue.title
-	$Panel/Text.text = dialogue.text
-	show()
+	$Control/Panel/Title.text = dialogue.title
+	$Control/Panel/Text.text = dialogue.text
+	$Control.show()
 
 func close():
-	hide()
+	$Control.hide()

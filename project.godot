@@ -48,6 +48,10 @@ config/name="Test"
 run/main_scene="res://World.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+DialogueManager="*res://Dialogue/DialogueManager.gd"
+
 [editor_plugins]
 
 enabled=PoolStringArray(  )
