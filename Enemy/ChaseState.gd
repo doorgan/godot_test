@@ -41,6 +41,8 @@ func exit():
 	$Timer.stop()
 
 func physics_process(delta):
+	if owner.target.invulnerable:
+		return emit_signal("finished", "idle")
 	var distance_to_target = owner.position.distance_to(owner.target.position)
 	var direction_to_target = owner.position.direction_to(owner.target.position)
 

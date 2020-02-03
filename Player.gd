@@ -7,10 +7,15 @@ var ACCELERATION: float = 200
 var motion: Vector2 = Vector2()
 var facing: Vector2 = Vector2.RIGHT setget set_facing
 var animations
+var invulnerable : = false
 
 # Flags
 var is_shielding : = false
 var can_parry : = false
+
+func _unhandled_input(event):
+	if Input.is_action_just_released("invulnerable"):
+		invulnerable = !invulnerable
 
 func _ready():
 	$AnimationTree.active = true

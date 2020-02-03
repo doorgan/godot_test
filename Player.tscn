@@ -559,57 +559,53 @@ tracks/4/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="Animation" id=37]
+[sub_resource type="Animation" id=10]
 resource_name = "shielding"
 length = 0.2
 loop = true
 
-[sub_resource type="AnimationNodeAnimation" id=10]
+[sub_resource type="AnimationNodeAnimation" id=11]
 animation = "attack1"
 
-[sub_resource type="AnimationNodeAnimation" id=11]
+[sub_resource type="AnimationNodeAnimation" id=12]
 animation = "attack2"
 
-[sub_resource type="AnimationNodeAnimation" id=12]
+[sub_resource type="AnimationNodeAnimation" id=13]
 animation = "attack3"
 
-[sub_resource type="AnimationNodeAnimation" id=13]
+[sub_resource type="AnimationNodeAnimation" id=14]
 animation = "idle"
 
-[sub_resource type="AnimationNodeAnimation" id=14]
+[sub_resource type="AnimationNodeAnimation" id=15]
 animation = "roll"
 
-[sub_resource type="AnimationNodeAnimation" id=15]
+[sub_resource type="AnimationNodeAnimation" id=16]
 animation = "run"
 
-[sub_resource type="AnimationNodeAnimation" id=38]
+[sub_resource type="AnimationNodeAnimation" id=17]
 animation = "shielding"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=16]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=17]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=18]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=19]
-switch_mode = 2
-auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=20]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=21]
+switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=22]
-switch_mode = 2
-auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=23]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=24]
 switch_mode = 2
 auto_advance = true
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=24]
-
 [sub_resource type="AnimationNodeStateMachineTransition" id=25]
+switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=26]
 
@@ -617,44 +613,48 @@ auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=28]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=29]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=30]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=31]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=32]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=33]
+
 [sub_resource type="AnimationNodeStateMachineTransition" id=34]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=35]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=36]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=39]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=40]
-
-[sub_resource type="AnimationNodeStateMachine" id=29]
-states/attack1/node = SubResource( 10 )
+[sub_resource type="AnimationNodeStateMachine" id=36]
+states/attack1/node = SubResource( 11 )
 states/attack1/position = Vector2( 365, -53 )
-states/attack2/node = SubResource( 11 )
+states/attack2/node = SubResource( 12 )
 states/attack2/position = Vector2( 365, 93 )
-states/attack3/node = SubResource( 12 )
+states/attack3/node = SubResource( 13 )
 states/attack3/position = Vector2( 365, 305 )
-states/idle/node = SubResource( 13 )
+states/idle/node = SubResource( 14 )
 states/idle/position = Vector2( 109, 93 )
-states/roll/node = SubResource( 14 )
+states/roll/node = SubResource( 15 )
 states/roll/position = Vector2( 114, -53 )
-states/run/node = SubResource( 15 )
+states/run/node = SubResource( 16 )
 states/run/position = Vector2( 109, 305 )
-states/shielding/node = SubResource( 38 )
+states/shielding/node = SubResource( 17 )
 states/shielding/position = Vector2( -77, 85 )
-transitions = [ "idle", "run", SubResource( 16 ), "run", "idle", SubResource( 17 ), "idle", "attack1", SubResource( 18 ), "attack1", "idle", SubResource( 19 ), "attack1", "attack2", SubResource( 20 ), "attack2", "attack3", SubResource( 21 ), "attack2", "idle", SubResource( 22 ), "attack3", "idle", SubResource( 23 ), "idle", "roll", SubResource( 24 ), "roll", "idle", SubResource( 25 ), "attack1", "roll", SubResource( 26 ), "attack2", "roll", SubResource( 27 ), "attack3", "roll", SubResource( 28 ), "attack1", "run", SubResource( 34 ), "attack2", "run", SubResource( 35 ), "attack3", "run", SubResource( 36 ), "idle", "shielding", SubResource( 39 ), "shielding", "idle", SubResource( 40 ) ]
+transitions = [ "idle", "run", SubResource( 18 ), "run", "idle", SubResource( 19 ), "idle", "attack1", SubResource( 20 ), "attack1", "idle", SubResource( 21 ), "attack1", "attack2", SubResource( 22 ), "attack2", "attack3", SubResource( 23 ), "attack2", "idle", SubResource( 24 ), "attack3", "idle", SubResource( 25 ), "idle", "roll", SubResource( 26 ), "roll", "idle", SubResource( 27 ), "attack1", "roll", SubResource( 28 ), "attack2", "roll", SubResource( 29 ), "attack3", "roll", SubResource( 30 ), "attack1", "run", SubResource( 31 ), "attack2", "run", SubResource( 32 ), "attack3", "run", SubResource( 33 ), "idle", "shielding", SubResource( 34 ), "shielding", "idle", SubResource( 35 ) ]
 start_node = "idle"
 graph_offset = Vector2( -209, -55 )
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=30]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=37]
 
-[sub_resource type="RectangleShape2D" id=31]
+[sub_resource type="RectangleShape2D" id=38]
 extents = Vector2( 5.94878, 5.16029 )
 
-[sub_resource type="RectangleShape2D" id=32]
+[sub_resource type="RectangleShape2D" id=39]
 extents = Vector2( 10, 8.75 )
 
-[sub_resource type="RectangleShape2D" id=33]
+[sub_resource type="RectangleShape2D" id=40]
 extents = Vector2( 19.9241, 5.8479 )
 
 [node name="Player" type="KinematicBody2D" groups=[
@@ -672,7 +672,6 @@ offset = Vector2( 0.097548, -24.0437 )
 hframes = 3
 
 [node name="Shield" type="Polygon2D" parent="."]
-editor/display_folded = true
 visible = false
 position = Vector2( 9.70636, -14.2741 )
 scale = Vector2( 0.920001, 0.9 )
@@ -691,7 +690,6 @@ position = Vector2( -0.00249557, -4.14814 )
 shape = SubResource( 1 )
 
 [node name="Hurtbox" parent="." instance=ExtResource( 3 )]
-editor/display_folded = true
 position = Vector2( 0, -23.5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
@@ -706,12 +704,12 @@ anims/hitstun = SubResource( 6 )
 anims/idle = SubResource( 7 )
 anims/roll = SubResource( 8 )
 anims/run = SubResource( 9 )
-anims/shielding = SubResource( 37 )
+anims/shielding = SubResource( 10 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 29 )
+tree_root = SubResource( 36 )
 anim_player = NodePath("../AnimationPlayer")
-parameters/playback = SubResource( 30 )
+parameters/playback = SubResource( 37 )
 
 [node name="States" type="Node2D" parent="."]
 position = Vector2( 0, -23.5 )
@@ -725,7 +723,6 @@ script = ExtResource( 10 )
 script = ExtResource( 11 )
 
 [node name="Roll" type="Node2D" parent="States"]
-editor/display_folded = true
 script = ExtResource( 12 )
 speed = 200
 duration = 0.7
@@ -735,7 +732,6 @@ wait_time = 0.5
 one_shot = true
 
 [node name="Attack" type="Node2D" parent="States"]
-editor/display_folded = true
 script = ExtResource( 13 )
 
 [node name="Hitbox" parent="States/Attack" instance=ExtResource( 14 )]
@@ -744,10 +740,9 @@ script = ExtResource( 13 )
 visible = false
 position = Vector2( 22.3528, 6.46612 )
 scale = Vector2( 2, 2 )
-shape = SubResource( 31 )
+shape = SubResource( 38 )
 
 [node name="Attack2" type="Node2D" parent="States"]
-editor/display_folded = true
 script = ExtResource( 15 )
 
 [node name="Hitbox" parent="States/Attack2" instance=ExtResource( 14 )]
@@ -756,10 +751,9 @@ script = ExtResource( 15 )
 visible = false
 position = Vector2( 25, 6 )
 scale = Vector2( 2, 2 )
-shape = SubResource( 32 )
+shape = SubResource( 39 )
 
 [node name="Attack3" type="Node2D" parent="States"]
-editor/display_folded = true
 script = ExtResource( 16 )
 
 [node name="Hitbox" parent="States/Attack3" instance=ExtResource( 14 )]
@@ -767,7 +761,7 @@ script = ExtResource( 16 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="States/Attack3/Hitbox"]
 visible = false
 position = Vector2( 40, 8.5 )
-shape = SubResource( 33 )
+shape = SubResource( 40 )
 
 [node name="Shield" type="Node2D" parent="States"]
 script = ExtResource( 17 )

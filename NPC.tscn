@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://NPC.gd" type="Script" id=1]
+[ext_resource path="res://Dialogue/dialogs/01.tres" type="Resource" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 42.6363
+
+[node name="NPC" type="Node2D"]
+script = ExtResource( 1 )
+dialogue = ExtResource( 2 )
+
+[node name="InteractionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2( -1.19748, -8.98106 )
+shape = SubResource( 1 )
+
+[node name="Button" type="Button" parent="."]
+visible = false
+margin_left = -30.19
+margin_top = -37.7933
+margin_right = 22.81
+margin_bottom = -17.7933
+rect_scale = Vector2( 1.16, 1 )
+text = "Hablar"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="Sprite"]
+position = Vector2( 0.0718336, -0.814146 )
+scale = Vector2( 0.509434, 0.509434 )
+color = Color( 1, 0.898039, 0.337255, 1 )
+polygon = PoolVector2Array( -18.3207, -27.8076, -0.16391, -41.076, 17.9929, -26.4109, 17.9929, 0.824219, -19.019, 0.824219 )
+[connection signal="body_entered" from="InteractionArea" to="." method="_on_InteractionArea_body_entered"]
+[connection signal="body_exited" from="InteractionArea" to="." method="_on_InteractionArea_body_exited"]
