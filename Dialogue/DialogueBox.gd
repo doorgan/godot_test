@@ -1,12 +1,15 @@
 extends CanvasLayer
 
-var dialogue : Dialogue
+var sequence : DialogueSequence
 
-func start(dialogue):
-	dialogue = dialogue
-	$Control/Panel/Title.text = dialogue.title
-	$Control/Panel/Text.text = dialogue.text
+func start(sequence : DialogueSequence) -> void:
+	sequence = sequence
+	print_dialogue(sequence.dialogues[0])
 	$Control.show()
 
-func close():
+func close() -> void:
 	$Control.hide()
+
+func print_dialogue(dialogue : Dialogue) -> void:
+	$Control/Panel/Title.text = dialogue.title
+	$Control/Panel/Text.text = dialogue.text
