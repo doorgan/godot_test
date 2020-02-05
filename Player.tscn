@@ -665,6 +665,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_vertical_guides_": [  ]
 }
+effects_slot = NodePath("EffectsSlot")
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
@@ -777,5 +778,7 @@ collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Shieldbox"]
 polygon = PoolVector2Array( 0.0272408, -34.8871, 10, -30, 16.7194, -21.1932, 16.8897, -10.125, 11.2704, -0.759556, 0.206482, 4.90483 )
+
+[node name="EffectsSlot" type="Node2D" parent="."]
 [connection signal="hit" from="Hurtbox" to="." method="_on_hit"]
 [connection signal="timeout" from="States/Roll/Timer" to="States/Roll" method="_on_Timer_timeout"]

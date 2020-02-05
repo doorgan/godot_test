@@ -15,11 +15,11 @@ func start(sequence : DialogueSequence):
 	sequence = sequence
 	var players = get_tree().get_nodes_in_group("player")
 	for player in players:
-		player.invulnerable = true
+		player.add_effect(EffectInvulnerable)
 	dialogue_box.start(sequence)
 
 func end():
 	var players = get_tree().get_nodes_in_group("player")
 	for player in players:
-		player.invulnerable = false
+		player.remove_effect(EffectInvulnerable)
 	dialogue_box.close()

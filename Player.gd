@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends Unit
 
 signal state_change(new_state)
 
@@ -7,7 +7,6 @@ var ACCELERATION: float = 200
 var motion: Vector2 = Vector2()
 var facing: Vector2 = Vector2.RIGHT setget set_facing
 var animations
-var invulnerable : = false
 
 # Flags
 var is_shielding : = false
@@ -15,15 +14,16 @@ var can_parry : = false
 
 func _unhandled_input(event):
 	if Input.is_action_just_released("invulnerable"):
-		invulnerable = !invulnerable
+		print("toggle inv")
+		if has_effect(EffectInvulnerable):
+			remove_effect(EffectInvulnerable)
+		else:
+			add_effect(EffectInvulnerable)
 
 func _ready():
 	$AnimationTree.active = true
 	animations = $AnimationTree.get("parameters/playback")
 	$States.start()
-
-func _physics_process(delta):
-	$States.tick(delta)
 
 func get_input_axis() -> Vector2:
 	var axis = Vector2.ZERO

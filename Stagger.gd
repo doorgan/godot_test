@@ -18,4 +18,4 @@ func physics_process(delta):
 	owner.velocity = owner.move_and_slide(direction * STAGGER_KNOCKBACK_SPEED)
 
 func _on_Timer_timeout():
-	emit_signal("finished", "chase")
+	emit_signal("finished", "idle")

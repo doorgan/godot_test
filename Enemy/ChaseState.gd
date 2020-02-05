@@ -31,6 +31,8 @@ enum {
 var state = CHASING
 
 func enter():
+	if not owner.target:
+		emit_signal("finished", "idle")
 	navigation = owner.get_tree().get_nodes_in_group("navigation")[0]
 	get_path()
 	$Timer.start()
@@ -41,7 +43,7 @@ func exit():
 	$Timer.stop()
 
 func physics_process(delta):
-	if owner.target.invulnerable:
+	if owner.target.has_effect(EffectInvulnerable):
 		return emit_signal("finished", "idle")
 	var distance_to_target = owner.position.distance_to(owner.target.position)
 	var direction_to_target = owner.position.direction_to(owner.target.position)
