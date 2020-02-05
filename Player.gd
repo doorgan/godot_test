@@ -22,6 +22,9 @@ func _ready():
 	animations = $AnimationTree.get("parameters/playback")
 	$States.start()
 
+func _physics_process(delta):
+	$States.tick(delta)
+
 func get_input_axis() -> Vector2:
 	var axis = Vector2.ZERO
 	axis.x = int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left"))

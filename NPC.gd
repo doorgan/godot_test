@@ -14,6 +14,7 @@ func _on_InteractionArea_body_exited(body):
 		$Button.visible = false
 		DialogueManager.end()
 
+
 func _unhandled_input(event):
 	if event.is_action_released("interact"):
 		DialogueManager.start(sequence)
