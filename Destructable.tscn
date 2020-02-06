@@ -42,4 +42,3 @@ margin_right = 20.0
 margin_bottom = -16.0
 text = "0"
 align = 1
-[connection signal="hit" from="Hurtbox" to="." method="_on_Hurtbox_hit"]

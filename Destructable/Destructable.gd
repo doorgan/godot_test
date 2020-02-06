@@ -9,10 +9,10 @@ export (int) var knockback_speed = 40
 func _ready():
 	update_hitpoints()
 
-func _on_Hurtbox_hit(attacker):
+func take_damage(attack):
 	hitpoints -= 1
 	update_hitpoints()
-	var angle = get_angle_to(attacker.position) + PI
+	var angle = get_angle_to(attack.attacker.position) + PI
 	knockback_direction = Vector2(cos(angle), sin(angle))
 	knockback()
 
