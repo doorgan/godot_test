@@ -5,9 +5,13 @@ export (int) var dps : = 5
 export (int) var damage_interval : = 1
 export (int) var duration : = 5
 
+const poison_fx = preload("res://SFX/Poison.tscn")
+
 var timer
 
 func _ready():
+	add_child(poison_fx.instance())
+	$Poison/AnimationPlayer.play("pulse")
 	create_timer()
 	get_tree().create_timer(duration).connect("timeout", self, "finish")
 

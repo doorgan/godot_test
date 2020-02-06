@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=2]
+[gd_scene load_steps=59 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://sprites/Skeleton/s_skeleton_idle_strip3-sheet.png" type="Texture" id=2]
@@ -18,7 +18,6 @@
 [ext_resource path="res://Player/Attack3State.gd" type="Script" id=16]
 [ext_resource path="res://Player/ShieldState.gd" type="Script" id=17]
 [ext_resource path="res://Shieldbox.tscn" type="PackedScene" id=18]
-[ext_resource path="res://Effects/Poison.gd" type="Script" id=19]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 6.00228, 4.16661 )
@@ -781,7 +780,4 @@ collision_mask = 0
 polygon = PoolVector2Array( 0.0272408, -34.8871, 10, -30, 16.7194, -21.1932, 16.8897, -10.125, 11.2704, -0.759556, 0.206482, 4.90483 )
 
 [node name="EffectsSlot" type="Node2D" parent="."]
-
-[node name="Poison" type="Node2D" parent="EffectsSlot"]
-script = ExtResource( 19 )
 [connection signal="timeout" from="States/Roll/Timer" to="States/Roll" method="_on_Timer_timeout"]

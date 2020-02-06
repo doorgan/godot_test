@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Dwarf_Sprite_Sheet1.2v.png-9620d4f4666edb49aa1feb31eaadcd31.stex"
+path="res://.import/poison.png-a7b23fe4d9a4b55158945974fd3d1840.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Dwarf_Sprite_Sheet1.2v.png"
-dest_files=[ "res://.import/Dwarf_Sprite_Sheet1.2v.png-9620d4f4666edb49aa1feb31eaadcd31.stex" ]
+source_file="res://sprites/FX/poison.png"
+dest_files=[ "res://.import/poison.png-a7b23fe4d9a4b55158945974fd3d1840.stex" ]
 
 [params]
 
