@@ -9,12 +9,16 @@ export (int) var movement_speed : int = 200
 export (int) var base_damage : int = 5
 
 export (NodePath) var effects_slot : NodePath
-onready var EffectsSlot : Node = get_node(effects_slot)
+var EffectsSlot : Node
 
 var effects : = []
 
 func _ready():
-	assert(effects_slot)
+	if effects_slot:
+		EffectsSlot = get_node(effects_slot)
+	else:
+		EffectsSlot = Node2D.new()
+		add_child(EffectsSlot)
 
 
 ######## ######## ######## ########  ######  ########  ######  
