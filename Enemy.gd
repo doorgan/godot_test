@@ -1,15 +1,12 @@
-extends KinematicBody2D
+extends Unit
 
 signal died
-
-export (int) var max_health = 5
 
 var target
 
 var velocity : = Vector2.ZERO
 var facing : = Vector2.RIGHT setget set_facing
 var last_attacker : Object
-var health = max_health
 var staggered : = false
 var dead : = false
 
@@ -17,14 +14,16 @@ onready var animations = $AnimationPlayer
 
 func _ready():
 	$States.start()
+	$Healthbar.value = health
 
-func take_damage(attacker):
-	health -= 1
+func take_damage(attack):
+	health -= attack.damage
+	$Healthbar.value = health
 	if health <= 0:
 		dead = true
 		$States._switch_state("die")
 	else:
-		stagger(attacker)
+		stagger(attack.attacker)
 
 func stagger(attacker):
 	last_attacker = attacker

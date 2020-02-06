@@ -64,8 +64,6 @@ func physics_process(delta):
 		or sign(owner.facing.x) == sign(owner.target.facing.x)
 		):
 		state = FINISHED
-	
-	print(state)
 
 	match state:
 		CHASING:
@@ -77,7 +75,6 @@ func physics_process(delta):
 			take_distance()
 		FINISHED:
 			emit_signal("finished", "attack")
-	print(distance_to_target)
 
 func strafe():
 	steer = get_strafe_vector()

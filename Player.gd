@@ -14,7 +14,6 @@ var can_parry : = false
 
 func _unhandled_input(event):
 	if Input.is_action_just_released("invulnerable"):
-		print("toggle inv")
 		if has_effect(EffectInvulnerable):
 			remove_effect(EffectInvulnerable)
 		else:
@@ -31,8 +30,9 @@ func get_input_axis() -> Vector2:
 	axis.y = int(Input.is_action_pressed("ui_down")) - int(Input.is_action_pressed("ui_up"))
 	return axis
 
-func take_damage(attacker):
-	print("Attacked by " + attacker.name)
+func take_damage(attack):
+	print("Player attacked by " + attack.attacker.name)
+	health -= attack.damage
 
 func set_facing(new_dir):
 	facing = new_dir
