@@ -9,7 +9,7 @@ var enabled = true
 
 func _ready():
 	interaction_tooltip = InteractionTooltip.instance()
-#	interaction_tooltip.hide()
+	interaction_tooltip.hide()
 	get_tree().get_nodes_in_group("GUI")[0].add_child(interaction_tooltip)
 
 
@@ -32,13 +32,17 @@ func next() -> void:
 
 
 func update_text() -> void:
+	if interactables.size() > 1:
+		interaction_tooltip.get_node("Panel/NextLabel").show()
+	else:
+		interaction_tooltip.get_node("Panel/NextLabel").hide()
+
 	if interactables.size() < 1:
 		interaction_tooltip.hide()
 		return
-	print(interactables.front())
 	interaction_tooltip.show()
 	interaction_tooltip.get_node("Panel/Label").text = \
-		interactables.front().action_text
+		"[E] " + interactables.front().action_text
 
 
 func _unhandled_input(event):
@@ -46,3 +50,5 @@ func _unhandled_input(event):
 		return
 	if event.is_action_released("interact"):
 		interactables.front().on_interact()
+	if event.is_action_released("toggle_interact"):
+		next()

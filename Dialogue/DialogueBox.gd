@@ -4,7 +4,7 @@ var sequence : DialogueSequence
 var current_dialogue_idx : int = 0
 
 func start(sequence : DialogueSequence) -> void:
-	sequence = sequence
+	self.sequence = sequence
 	current_dialogue_idx = 0
 	print_dialogue(sequence.dialogues[0])
 	$Control.show()
@@ -19,12 +19,9 @@ func print_dialogue(dialogue : Dialogue) -> void:
 func next() -> void:
 	if not sequence:
 		return
-	print("over!")
 	current_dialogue_idx += 1
-	if current_dialogue_idx == sequence.dialogues.size():
-		print("over!")
+	if current_dialogue_idx >= sequence.dialogues.size():
 		DialogueManager.end()
 		return
-	print("next!")
 	var next_dialogue = sequence.dialogues[current_dialogue_idx]
 	print_dialogue(next_dialogue)

@@ -37,7 +37,14 @@ margin_left = 20.0
 margin_top = 30.0
 margin_right = 840.0
 margin_bottom = 90.0
-text = "Text"
+bbcode_enabled = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="NextLabel" type="Label" parent="Control/Panel"]
+margin_left = 783.38
+margin_top = 87.5347
+margin_right = 859.38
+margin_bottom = 101.535
+text = "[E] Continue"

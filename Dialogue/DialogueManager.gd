@@ -23,22 +23,20 @@ func start(sequence : DialogueSequence):
 	active = true
 
 func end():
-	InteractionManager.enabled = true
+	print("end dialogue!")
 	var players = get_tree().get_nodes_in_group("player")
 	for player in players:
 		player.remove_effect(EffectInvulnerable)
 		player.remove_effect(EffectDisableInput)
 	dialogue_box.close()
 	active = false
+	yield(get_tree().create_timer(0.5), "timeout")
+	InteractionManager.enabled = true
 
 
 func _input(event):
-	print(active)
-	print(sequence)
-	print("========")
-	if not active or not sequence:
+	if not active:
 		return
-	
-	print("aaa")
+
 	if event.is_action_released("interact"):
 		dialogue_box.next()

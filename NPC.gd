@@ -4,7 +4,7 @@ const Dialogue = preload("res://Dialogue/Dialogue.gd")
 
 export (Resource) var sequence
 
-var action_text = "Talk"
+export (String) var action_text = "Talk"
 
 func _on_InteractionArea_body_entered(body):
 	if body.is_in_group("player"):

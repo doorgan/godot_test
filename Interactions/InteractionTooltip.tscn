@@ -20,7 +20,19 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="Panel"]
-margin_left = 22.46
-margin_top = 13.0
-margin_right = 286.46
-margin_bottom = 27.0
+margin_left = 21.8912
+margin_top = 3.33038
+margin_right = 285.891
+margin_bottom = 17.3304
+align = 1
+
+[node name="NextLabel" type="Label" parent="Panel"]
+visible = false
+margin_left = 123.43
+margin_top = 20.4768
+margin_right = 178.43
+margin_bottom = 34.4768
+text = "[W] Next"
+__meta__ = {
+"_edit_use_anchors_": false
+}
