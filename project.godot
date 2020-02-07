@@ -35,6 +35,11 @@ _global_script_classes=[ {
 "path": "res://Effects/Effect.gd"
 }, {
 "base": "Effect",
+"class": "EffectDisableInput",
+"language": "GDScript",
+"path": "res://Effects/DisableInput.gd"
+}, {
+"base": "Effect",
 "class": "EffectInvulnerable",
 "language": "GDScript",
 "path": "res://Effects/Invulnerable.gd"
@@ -75,6 +80,7 @@ _global_script_class_icons={
 "Dialogue": "",
 "DialogueSequence": "",
 "Effect": "",
+"EffectDisableInput": "",
 "EffectInvulnerable": "",
 "EffectPoison": "",
 "Effects": "",
@@ -93,6 +99,7 @@ config/icon="res://icon.png"
 [autoload]
 
 DialogueManager="*res://Dialogue/DialogueManager.gd"
+InteractionManager="*res://Interactions/InteractionManager.gd"
 
 [editor_plugins]
 

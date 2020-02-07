@@ -858,12 +858,9 @@ points = PoolVector2Array( 16, 12, 16, 16, 12, 16, 12, 12 )
 
 [node name="Node" type="Node2D"]
 
-[node name="GUI" type="Control" parent="." groups=[
+[node name="GUI" type="CanvasLayer" parent="." groups=[
 "GUI",
 ]]
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Navigation2D" type="Navigation2D" parent="." groups=[
 "navigation",

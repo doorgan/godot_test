@@ -1,9 +1,11 @@
 extends CanvasLayer
 
 var sequence : DialogueSequence
+var current_dialogue_idx : int = 0
 
 func start(sequence : DialogueSequence) -> void:
 	sequence = sequence
+	current_dialogue_idx = 0
 	print_dialogue(sequence.dialogues[0])
 	$Control.show()
 
@@ -13,3 +15,16 @@ func close() -> void:
 func print_dialogue(dialogue : Dialogue) -> void:
 	$Control/Panel/Title.text = dialogue.title
 	$Control/Panel/Text.text = dialogue.text
+
+func next() -> void:
+	if not sequence:
+		return
+	print("over!")
+	current_dialogue_idx += 1
+	if current_dialogue_idx == sequence.dialogues.size():
+		print("over!")
+		DialogueManager.end()
+		return
+	print("next!")
+	var next_dialogue = sequence.dialogues[current_dialogue_idx]
+	print_dialogue(next_dialogue)

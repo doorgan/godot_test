@@ -18,6 +18,8 @@ func _unhandled_input(event):
 			remove_effect(EffectInvulnerable)
 		else:
 			add_effect(EffectInvulnerable)
+	if not has_effect(EffectDisableInput):
+		$States.handle_input(event)
 
 func _ready():
 	$AnimationTree.active = true

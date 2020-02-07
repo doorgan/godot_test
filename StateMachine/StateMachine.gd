@@ -23,7 +23,7 @@ func start():
 func _physics_process(delta):
 	current_state.physics_process(delta)
 
-func _unhandled_input(event):
+func handle_input(event):
 	current_state.handle_input(event)
 
 func _switch_state(state_name):

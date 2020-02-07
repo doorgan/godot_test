@@ -1,6 +1,6 @@
 extends State
 
-func physics_process(delta):
+func handle_input(event):
 	if Input.is_action_just_pressed("roll"):
 		emit_signal("finished", "roll")
 	

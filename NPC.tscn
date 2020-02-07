@@ -16,18 +16,6 @@ sequence = ExtResource( 2 )
 position = Vector2( -1.19748, -8.98106 )
 shape = SubResource( 1 )
 
-[node name="Button" type="Button" parent="."]
-visible = false
-margin_left = -30.19
-margin_top = -37.7933
-margin_right = 22.81
-margin_bottom = -17.7933
-rect_scale = Vector2( 1.16, 1 )
-text = "[E] Talk"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Sprite" type="Sprite" parent="."]
 
 [node name="Polygon2D" type="Polygon2D" parent="Sprite"]
