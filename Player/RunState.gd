@@ -9,6 +9,7 @@ func handle_input(event):
 
 
 func physics_process(delta):
+	owner.play_animation("run")
 	var axis = owner.get_input_axis()
 	if axis == Vector2.ZERO:
 		owner.motion = Vector2.ZERO

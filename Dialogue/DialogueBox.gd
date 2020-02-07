@@ -3,6 +3,11 @@ extends CanvasLayer
 var sequence : DialogueSequence
 var current_dialogue_idx : int = 0
 
+
+func _ready() -> void:
+	$Control/Panel/NextLabel.text = "[" + InputMap.get_action_list("interact")[0].as_text() + "] Continue"
+
+
 func start(sequence : DialogueSequence) -> void:
 	self.sequence = sequence
 	current_dialogue_idx = 0

@@ -67,8 +67,11 @@ func physics_process(delta):
 
 	match state:
 		CHASING:
-			follow_path(delta)
-			owner.facing = owner.velocity
+			if owner.get_node("Perception").get_overlapping_bodies().has(owner.target):
+				follow_path(delta)
+				owner.facing = owner.velocity
+			else:
+				emit_signal("finished", "idle")
 		STRAFING:
 			strafe()
 		TAKING_DISTANCE:

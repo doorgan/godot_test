@@ -11,6 +11,7 @@ func _ready():
 	interaction_tooltip = InteractionTooltip.instance()
 	interaction_tooltip.hide()
 	get_tree().get_nodes_in_group("GUI")[0].add_child(interaction_tooltip)
+	interaction_tooltip.get_node("Panel/NextLabel").text = "[" + _get_key("toggle_interact") + "] Next"
 
 
 func add_interactable(interactable) -> void:
@@ -42,7 +43,11 @@ func update_text() -> void:
 		return
 	interaction_tooltip.show()
 	interaction_tooltip.get_node("Panel/Label").text = \
-		"[E] " + interactables.front().action_text
+		"[" + _get_key("interact") + "] " + interactables.front().action_text
+
+
+func _get_key(key : String) -> String:
+	return InputMap.get_action_list(key)[0].as_text()
 
 
 func _unhandled_input(event):
