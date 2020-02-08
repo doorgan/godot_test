@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Enemy.gd" type="Script" id=1]
 [ext_resource path="res://Enemy/EnemyStates.gd" type="Script" id=2]
@@ -9,7 +9,6 @@
 [ext_resource path="res://Stagger.gd" type="Script" id=7]
 [ext_resource path="res://Die.gd" type="Script" id=8]
 [ext_resource path="res://Hurtbox.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Effects/Poison.gd" type="Script" id=10]
 
 [sub_resource type="ParticlesMaterial" id=1]
 emission_shape = 1
@@ -745,9 +744,6 @@ position = Vector2( 0, -7.94165 )
 shape = SubResource( 10 )
 
 [node name="EffectsSlot" type="Node2D" parent="."]
-
-[node name="Node2D" type="Node2D" parent="EffectsSlot"]
-script = ExtResource( 10 )
 
 [node name="Healthbar" type="ProgressBar" parent="."]
 margin_left = -7.73121
